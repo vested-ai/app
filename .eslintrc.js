@@ -5,8 +5,8 @@ module.exports = {
       files: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
       extends: ['plugin:testing-library/react'],
     },
-    jest: {
-      testPathIgnorePatterns: ['/node_modules/', '/app-example/']
-    }
   ],
+  jest: {
+    testPathIgnorePatterns: ['/node_modules/', '/app-example/']
+  }
 };
