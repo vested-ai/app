@@ -1,11 +1,12 @@
 import { render } from '@testing-library/react-native';
 
-import Index from '@/app/index';
+import App from '../app/index';
 
-describe('<Index />', () => {
-  test('Text renders correctly on Index', () => {
-    const { getByText } = render(<Index />);
 
-    getByText('Edit app/index.tsx to edit this screen.');
+describe('<App />', () => {
+  test('Text renders correctly on App', () => {
+    const { getByText } = render(<App />);
+
+    getByText('Already have an account?');
   });
 });
