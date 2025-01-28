@@ -76,14 +76,14 @@ export default function LoginEmail() {
           placeholder="Password"
           value={password}
           onChangeText={setPassword}
-          autoComplete="new-password"
+          autoComplete="current-password"
           autoCorrect={false}    
           inputMode="text"
           secureTextEntry={true}
           accessibilityLabel="Password"
           accessibilityHint="Enter your password"
           returnKeyType="done"
-          onSubmitEditing={() => { handleEmailLogin }}
+          onSubmitEditing={handleEmailLogin}
           ref={passwordRef}
         />
 
