@@ -23,11 +23,6 @@ export const LoginScreen = () => {
     router.push('/(account)/create');
   };
 
-  const handleSignIn = () => {
-    // Navigate to sign in screen
-    router.push('/(login)/login');
-  };
-
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>
@@ -60,10 +55,7 @@ export const LoginScreen = () => {
           <ThemedText style={styles.buttonText}>Sign up with Email</ThemedText>
         </TouchableOpacity>
 
-        <TouchableOpacity 
-          style={styles.signInLink}
-          onPress={handleSignIn}
-        >
+        <TouchableOpacity style={styles.signInLink}>
           <ThemedText style={styles.signInText}>
             <Link style={styles.linkText} href="/(login)/login">Already have an account?</Link>
           </ThemedText>
