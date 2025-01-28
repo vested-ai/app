@@ -102,23 +102,17 @@ export default function LoginEmail() {
         </TouchableOpacity>
 
 
-        <TouchableOpacity 
-          style={styles.loginText}
-          onPress={handleCreateAccountRedirect}
-        >
+        <Link style={styles.linkText} href="/(account)/create">
           <ThemedText style={styles.linkText}>
-            <Link style={styles.linkText} href="/(account)/create">Need an account?</Link>
+            Need an account?
           </ThemedText>
-        </TouchableOpacity>
+        </Link>
 
-        <TouchableOpacity 
-          style={styles.linkText}
-          onPress={handleResetPasswordRedirect}
-        >
+        <Link style={styles.linkText} href="/(account)/reset-password">
           <ThemedText style={styles.linkText}>
-            <Link style={styles.linkText} href="/(account)/reset-password">Forgot Password?</Link>
+            Forgot Password?
           </ThemedText>
-        </TouchableOpacity>
+        </Link>
     </View>    
   );
 }
