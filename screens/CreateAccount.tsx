@@ -18,6 +18,7 @@ export default function CreateAccount() {
     const passwordRef = useRef<TextInput>(null);
 
     const handleAccountCreation = () => {
+        console.log('test');
         setError(null);
 
         if (!firstName || !lastName || !email || !password) {
@@ -55,6 +56,8 @@ export default function CreateAccount() {
     <View style={styles.container}>
         <Text>Create an Account</Text>
         
+        { error && (<Text style={styles.errorText}>{error}</Text>) }
+
         <TextInput
           style={styles.input}
           placeholder="First Name"
@@ -129,14 +132,15 @@ export default function CreateAccount() {
           returnKeyType="done"
           onSubmitEditing={() => { handleAccountCreation }}
           ref={passwordRef}
-
         />
 
         <TouchableOpacity 
           style={[styles.button, styles.signupButton]}
           onPress={handleAccountCreation}
         >
-          <ThemedText style={styles.buttonText}>Sign Up</ThemedText>
+          <ThemedText style={styles.buttonText}>
+            { isLoading ? 'Creating Account...' : 'Sign Up' }
+        </ThemedText>
         </TouchableOpacity>
 
         <LegalDisclaimer />
@@ -175,5 +179,10 @@ const styles = StyleSheet.create({
       },
       signupButton: {
         backgroundColor: '#DB4437',
+      },
+      errorText: {
+        color: 'red',
+        marginTop: 10,
+        textAlign: 'center',
       },
 })
