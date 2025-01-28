@@ -1,7 +1,8 @@
 import { Text } from "react-native";
+import LoginEmail from "@/screens/LoginEmail";
 
-export default function LoginEmail() {
+export default function LoginRoute() {
     return (
-      <Text>TBD</Text>
+      <LoginEmail />
     );
   }
