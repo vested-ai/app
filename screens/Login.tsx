@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Image, TouchableOpacity, Text, TextInput } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
+import { LegalDisclaimer } from '@/components/LegalDisclaimer';
 
 // You'll need to add your app logo image to your assets
 const APP_LOGO = require('@/assets/images/react-logo.png');
@@ -19,6 +20,7 @@ export const LoginScreen = () => {
 
   const handleEmailSignUp = () => {
     // Navigate to email sign up screen
+    router.replace('/(account)/create');
   };
 
   const handleSignIn = () => {
@@ -66,9 +68,7 @@ export const LoginScreen = () => {
           </ThemedText>
         </TouchableOpacity>
 
-        <ThemedText style={styles.legalText}>
-          By signing up, you agree with the <Link style={styles.linkText} href="/(aux)/tos">Terms of Service</Link> and <Link style={styles.linkText} href="/(aux)/privacy">Privacy Policy</Link>
-        </ThemedText>
+        <LegalDisclaimer />
       </View>
     </View>
   );
