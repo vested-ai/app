@@ -2,15 +2,48 @@ import { Text, StyleSheet, TouchableOpacity, View, TextInput } from "react-nativ
 import { useState } from "react";
 import { LegalDisclaimer } from "@/components/LegalDisclaimer";
 import { ThemedText } from "@/components/ThemedText";
+import { router } from "expo-router";
 
 export default function CreateAccount() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     const handleAccountCreation = () => {
-        // Implement account creation logic
+        setError(null);
+
+        if (!firstName || !lastName || !email || !password) {
+            setError('Please fill in all fields');
+            return;
+        }
+
+        // Basic email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            setError('Please enter a valid email address');
+            return;
+        }
+
+        // Password validation
+        if (password.length < 1) {
+            setError('Password must be at least 1 characters long');
+            return;
+        }
+
+        try {
+            setIsLoading(true);
+            // TODO: call account creatiion API
+            // await createAccount({ firstname, lastName, email, password });
+            router.replace('/(account)/verify');
+        
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'Failed to create account');
+        } finally {
+            setIsLoading(false);
+        }
     }
 
   return (
@@ -25,6 +58,14 @@ export default function CreateAccount() {
           autoComplete="given-name"
           autoCorrect={false}
           inputMode="text"
+          accessibilityLabel="First Name"
+          accessibilityHint="Enter your first name"
+          returnKeyType="next"
+          onSubmitEditing={() => {
+            // Focus the next input (Last Name)
+            lastNameRef.current?.focus();
+          }}
+          ref={firstNameRef}
         />
 
         <TextInput
@@ -35,6 +76,15 @@ export default function CreateAccount() {
           autoComplete="family-name"
           autoCorrect={false}
           inputMode="text"
+          accessibilityLabel="First Name"
+          accessibilityHint="Enter your first name"
+          returnKeyType="next"
+          onSubmitEditing={() => {
+            // Focus the next input (Last Name)
+            emailRef.current?.focus();
+          }}
+          ref={lastNameRef}
+
 
 
         />
@@ -48,6 +98,15 @@ export default function CreateAccount() {
           autoCorrect={false}
           inputMode="email"
           keyboardType="email-address"
+          accessibilityLabel="First Name"
+          accessibilityHint="Enter your first name"
+          returnKeyType="next"
+          onSubmitEditing={() => {
+            // Focus the next input (Last Name)
+            passwordRef.current?.focus();
+          }}
+          ref={emailRef}
+
         />
 
         <TextInput
@@ -59,6 +118,12 @@ export default function CreateAccount() {
           autoCorrect={false}    
           inputMode="text"
           secureTextEntry={true}
+          accessibilityLabel="First Name"
+          accessibilityHint="Enter your first name"
+          returnKeyType="next"
+          onSubmitEditing={() => { handleAccountCreation }}
+          ref={passwordRef}
+
         />
 
         <TouchableOpacity 
