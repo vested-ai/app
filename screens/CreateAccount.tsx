@@ -1,5 +1,5 @@
 import { Text, StyleSheet, TouchableOpacity, View, TextInput } from "react-native";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { LegalDisclaimer } from "@/components/LegalDisclaimer";
 import { ThemedText } from "@/components/ThemedText";
 import { router } from "expo-router";
@@ -11,6 +11,11 @@ export default function CreateAccount() {
   const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+
+    const firstNameRef = useRef<TextInput>(null);
+    const lastNameRef = useRef<TextInput>(null);
+    const emailRef = useRef<TextInput>(null);
+    const passwordRef = useRef<TextInput>(null);
 
     const handleAccountCreation = () => {
         setError(null);
@@ -57,6 +62,7 @@ export default function CreateAccount() {
           onChangeText={setFirstName}
           autoComplete="given-name"
           autoCorrect={false}
+          autoFocus={true}
           inputMode="text"
           accessibilityLabel="First Name"
           accessibilityHint="Enter your first name"
@@ -76,8 +82,8 @@ export default function CreateAccount() {
           autoComplete="family-name"
           autoCorrect={false}
           inputMode="text"
-          accessibilityLabel="First Name"
-          accessibilityHint="Enter your first name"
+          accessibilityLabel="Last Name"
+          accessibilityHint="Enter your last name"
           returnKeyType="next"
           onSubmitEditing={() => {
             // Focus the next input (Last Name)
@@ -98,8 +104,8 @@ export default function CreateAccount() {
           autoCorrect={false}
           inputMode="email"
           keyboardType="email-address"
-          accessibilityLabel="First Name"
-          accessibilityHint="Enter your first name"
+          accessibilityLabel="Email"
+          accessibilityHint="Enter your email"
           returnKeyType="next"
           onSubmitEditing={() => {
             // Focus the next input (Last Name)
@@ -118,9 +124,9 @@ export default function CreateAccount() {
           autoCorrect={false}    
           inputMode="text"
           secureTextEntry={true}
-          accessibilityLabel="First Name"
-          accessibilityHint="Enter your first name"
-          returnKeyType="next"
+          accessibilityLabel="Password"
+          accessibilityHint="Enter your password"
+          returnKeyType="done"
           onSubmitEditing={() => { handleAccountCreation }}
           ref={passwordRef}
 
