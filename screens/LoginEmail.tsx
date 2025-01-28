@@ -24,22 +24,27 @@ export default function LoginEmail() {
     }
 
     const handleEmailLogin = () => {
-        console.log('test');
         setError(null);
 
         if (!email || !password) {
-            setError('Please fill in all fields');
+            setError('Email and password are required');
+            return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            setError('Please enter a valid email address');
             return;
         }
 
         try {
             setIsLoading(true);
-            // TODO: call account creatiion API
-            // await createAccount({ firstname, lastName, email, password });
+            // TODO: Implement login API with rate limiting
+            // await loginUser({ email, password });
             router.replace('/(account)/profile');
         
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Failed to create account');
+            setError('Invalid email or password');  // Don't expose specific errors
         } finally {
             setIsLoading(false);
         }
