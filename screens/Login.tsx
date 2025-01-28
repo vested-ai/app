@@ -20,7 +20,7 @@ export const LoginScreen = () => {
 
   const handleEmailSignUp = () => {
     // Navigate to email sign up screen
-    router.replace('/(account)/create');
+    router.push('/(account)/create');
   };
 
   const handleSignIn = () => {
