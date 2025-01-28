@@ -5,7 +5,11 @@ import { ThemedText } from '@/components/ThemedText';
 
 export function LegalDisclaimer() {
   return (
-    <ThemedText style={styles.legalText}>
+    <ThemedText 
+      style={styles.legalText}
+      accessibilityRole="text"
+      accessibilityLabel="Legal disclaimer for account creation"
+    >
         By signing up, you agree with the <Link style={styles.linkText} href="/(aux)/tos">Terms of Service</Link> and <Link style={styles.linkText} href="/(aux)/privacy">Privacy Policy</Link>
     </ThemedText>
   );
