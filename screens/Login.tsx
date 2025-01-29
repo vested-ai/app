@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Image, TouchableOpacity, Text, TextInput } from 'react-native';
+import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { Link, router } from 'expo-router';
 import { LegalDisclaimer } from '@/components/LegalDisclaimer';
 
 // You'll need to add your app logo image to your assets
-const APP_LOGO = require('@/assets/images/react-logo.png');
+import APP_LOGO from '@/assets/images/react-logo.png';
 
 export const LoginScreen = () => {
-  const [email, setEmail] = useState('');
 
   const handleFacebookLogin = () => {
     // Implement Facebook login logic

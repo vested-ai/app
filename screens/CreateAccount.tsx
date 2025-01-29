@@ -18,7 +18,6 @@ export default function CreateAccount() {
     const passwordRef = useRef<TextInput>(null);
 
     const handleAccountCreation = () => {
-        console.log('test');
         setError(null);
 
         if (!firstName || !lastName || !email || !password) {
@@ -130,7 +129,7 @@ export default function CreateAccount() {
           accessibilityLabel="Password"
           accessibilityHint="Enter your password"
           returnKeyType="done"
-          onSubmitEditing={() => { handleAccountCreation }}
+        onSubmitEditing={() => handleAccountCreation()}
           ref={passwordRef}
         />
 

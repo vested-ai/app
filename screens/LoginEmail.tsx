@@ -1,6 +1,5 @@
 import { Text, StyleSheet, TouchableOpacity, View, TextInput } from "react-native";
 import { useRef, useState } from "react";
-import { LegalDisclaimer } from "@/components/LegalDisclaimer";
 import { ThemedText } from "@/components/ThemedText";
 import { Link, router } from "expo-router";
 
@@ -15,13 +14,6 @@ export default function LoginEmail() {
     const emailRef = useRef<TextInput>(null);
     const passwordRef = useRef<TextInput>(null);
 
-    const handleCreateAccountRedirect = () => {
-        router.replace('/(account)/create');
-    }
-
-    const handleResetPasswordRedirect = () => {
-        router.push('/(account)/reset-password');
-    }
 
     const handleEmailLogin = () => {
         setError(null);
@@ -43,7 +35,7 @@ export default function LoginEmail() {
             // await loginUser({ email, password });
             router.replace('/(account)/profile');
         
-        } catch (err) {
+        } catch (_err) {
             setError('Invalid email or password');  // Don't expose specific errors
         } finally {
             setIsLoading(false);
