@@ -211,6 +211,9 @@ export default function ProfileSetup() {
                                 setDatingApps(newApps);
                             }}
                             placeholder="Paste credentials"
+                            secureTextEntry={true}
+                            autoComplete="off"
+                            textContentType="oneTimeCode"
                         />
                     </View>
                 ))}
