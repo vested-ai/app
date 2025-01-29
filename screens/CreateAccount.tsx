@@ -5,10 +5,10 @@ import { ThemedText } from "@/components/ThemedText";
 import { router } from "expo-router";
 
 export default function CreateAccount() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -18,7 +18,6 @@ export default function CreateAccount() {
     const passwordRef = useRef<TextInput>(null);
 
     const handleAccountCreation = () => {
-        console.log('test');
         setError(null);
 
         if (!firstName || !lastName || !email || !password) {
@@ -52,101 +51,101 @@ export default function CreateAccount() {
         }
     }
 
-  return (
-    <View style={styles.container}>
-        <Text>Create an Account</Text>
+    return (
+        <View style={styles.container}>
+            <Text>Create an Account</Text>
         
-        { error && (<Text style={styles.errorText}>{error}</Text>) }
+            { error && (<Text style={styles.errorText}>{error}</Text>) }
 
-        <TextInput
-          style={styles.input}
-          placeholder="First Name"
-          value={firstName}
-          onChangeText={setFirstName}
-          autoComplete="given-name"
-          autoCorrect={false}
-          autoFocus={true}
-          inputMode="text"
-          accessibilityLabel="First Name"
-          accessibilityHint="Enter your first name"
-          returnKeyType="next"
-          onSubmitEditing={() => {
-            // Focus the next input (Last Name)
-            lastNameRef.current?.focus();
-          }}
-          ref={firstNameRef}
-        />
+            <TextInput
+                style={styles.input}
+                placeholder="First Name"
+                value={firstName}
+                onChangeText={setFirstName}
+                autoComplete="given-name"
+                autoCorrect={false}
+                autoFocus={true}
+                inputMode="text"
+                accessibilityLabel="First Name"
+                accessibilityHint="Enter your first name"
+                returnKeyType="next"
+                onSubmitEditing={() => {
+                    // Focus the next input (Last Name)
+                    lastNameRef.current?.focus();
+                }}
+                ref={firstNameRef}
+            />
 
-        <TextInput
-          style={styles.input}
-          placeholder="Last Name"
-          value={lastName}
-          onChangeText={setLastName}
-          autoComplete="family-name"
-          autoCorrect={false}
-          inputMode="text"
-          accessibilityLabel="Last Name"
-          accessibilityHint="Enter your last name"
-          returnKeyType="next"
-          onSubmitEditing={() => {
-            // Focus the next input (Last Name)
-            emailRef.current?.focus();
-          }}
-          ref={lastNameRef}
+            <TextInput
+                style={styles.input}
+                placeholder="Last Name"
+                value={lastName}
+                onChangeText={setLastName}
+                autoComplete="family-name"
+                autoCorrect={false}
+                inputMode="text"
+                accessibilityLabel="Last Name"
+                accessibilityHint="Enter your last name"
+                returnKeyType="next"
+                onSubmitEditing={() => {
+                    // Focus the next input (Last Name)
+                    emailRef.current?.focus();
+                }}
+                ref={lastNameRef}
 
 
 
-        />
+            />
 
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          value={email}
-          onChangeText={setEmail}
-          autoComplete="email"
-          autoCorrect={false}
-          inputMode="email"
-          keyboardType="email-address"
-          accessibilityLabel="Email"
-          accessibilityHint="Enter your email"
-          returnKeyType="next"
-          onSubmitEditing={() => {
-            // Focus the next input (Last Name)
-            passwordRef.current?.focus();
-          }}
-          ref={emailRef}
+            <TextInput
+                style={styles.input}
+                placeholder="Email"
+                value={email}
+                onChangeText={setEmail}
+                autoComplete="email"
+                autoCorrect={false}
+                inputMode="email"
+                keyboardType="email-address"
+                accessibilityLabel="Email"
+                accessibilityHint="Enter your email"
+                returnKeyType="next"
+                onSubmitEditing={() => {
+                    // Focus the next input (Last Name)
+                    passwordRef.current?.focus();
+                }}
+                ref={emailRef}
 
-        />
+            />
 
-        <TextInput
-          style={styles.input}
-          placeholder="Password"
-          value={password}
-          onChangeText={setPassword}
-          autoComplete="new-password"
-          autoCorrect={false}    
-          inputMode="text"
-          secureTextEntry={true}
-          accessibilityLabel="Password"
-          accessibilityHint="Enter your password"
-          returnKeyType="done"
-          onSubmitEditing={() => { handleAccountCreation }}
-          ref={passwordRef}
-        />
+            <TextInput
+                style={styles.input}
+                placeholder="Password"
+                value={password}
+                onChangeText={setPassword}
+                autoComplete="new-password"
+                autoCorrect={false}    
+                inputMode="text"
+                secureTextEntry={true}
+                accessibilityLabel="Password"
+                accessibilityHint="Enter your password"
+                returnKeyType="done"
+                onSubmitEditing={() => handleAccountCreation()}
+                ref={passwordRef}
+            />
 
-        <TouchableOpacity 
-          style={[styles.button, styles.signupButton]}
-          onPress={handleAccountCreation}
-        >
-          <ThemedText style={styles.buttonText}>
-            { isLoading ? 'Creating Account...' : 'Sign Up' }
-        </ThemedText>
-        </TouchableOpacity>
+            <TouchableOpacity 
+                style={[styles.button, styles.signupButton]}
+                onPress={handleAccountCreation}
+            >
+                <ThemedText style={styles.buttonText}>
+                    { isLoading ? 'Creating Account...' : 'Sign Up' }
+                </ThemedText>
+            </TouchableOpacity>
 
-        <LegalDisclaimer />
+            <LegalDisclaimer />
 
-    </View>    
-  );
+        </View>    
+    );
 }
 
 const styles = StyleSheet.create({
@@ -171,18 +170,18 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         marginBottom: 15,
         alignItems: 'center',
-      },
-      buttonText: {
+    },
+    buttonText: {
         color: '#FFFFFF',
         fontSize: 16,
         fontWeight: 'bold',
-      },
-      signupButton: {
+    },
+    signupButton: {
         backgroundColor: '#DB4437',
-      },
-      errorText: {
+    },
+    errorText: {
         color: 'red',
         marginTop: 10,
         textAlign: 'center',
-      },
+    },
 })

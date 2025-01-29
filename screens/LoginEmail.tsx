@@ -1,27 +1,19 @@
 import { Text, StyleSheet, TouchableOpacity, View, TextInput } from "react-native";
 import { useRef, useState } from "react";
-import { LegalDisclaimer } from "@/components/LegalDisclaimer";
 import { ThemedText } from "@/components/ThemedText";
 import { Link, router } from "expo-router";
 
 
 export default function LoginEmail() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
-  const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
     const emailRef = useRef<TextInput>(null);
     const passwordRef = useRef<TextInput>(null);
 
-    const handleCreateAccountRedirect = () => {
-        router.replace('/(account)/create');
-    }
-
-    const handleResetPasswordRedirect = () => {
-        router.push('/(account)/reset-password');
-    }
 
     const handleEmailLogin = () => {
         setError(null);
@@ -43,78 +35,78 @@ export default function LoginEmail() {
             // await loginUser({ email, password });
             router.replace('/(account)/profile');
         
-        } catch (err) {
+        } catch (_err) {
             setError('Invalid email or password');  // Don't expose specific errors
         } finally {
             setIsLoading(false);
         }
     }
 
-  return (
-    <View style={styles.container}>
-        <Text>Sign In With Email</Text>
+    return (
+        <View style={styles.container}>
+            <Text>Sign In With Email</Text>
         
-        { error && (<Text style={styles.errorText}>{error}</Text>) }
+            { error && (<Text style={styles.errorText}>{error}</Text>) }
 
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          value={email}
-          onChangeText={setEmail}
-          autoComplete="email"
-          autoCorrect={false}
-          inputMode="email"
-          keyboardType="email-address"
-          accessibilityLabel="Email"
-          accessibilityHint="Enter your email"
-          returnKeyType="next"
-          onSubmitEditing={() => {
-            // Focus the next input (Last Name)
-            passwordRef.current?.focus();
-          }}
-          ref={emailRef}
+            <TextInput
+                style={styles.input}
+                placeholder="Email"
+                value={email}
+                onChangeText={setEmail}
+                autoComplete="email"
+                autoCorrect={false}
+                inputMode="email"
+                keyboardType="email-address"
+                accessibilityLabel="Email"
+                accessibilityHint="Enter your email"
+                returnKeyType="next"
+                onSubmitEditing={() => {
+                    // Focus the next input (Last Name)
+                    passwordRef.current?.focus();
+                }}
+                ref={emailRef}
 
-        />
+            />
 
-        <TextInput
-          style={styles.input}
-          placeholder="Password"
-          value={password}
-          onChangeText={setPassword}
-          autoComplete="current-password"
-          autoCorrect={false}    
-          inputMode="text"
-          secureTextEntry={true}
-          accessibilityLabel="Password"
-          accessibilityHint="Enter your password"
-          returnKeyType="done"
-          onSubmitEditing={handleEmailLogin}
-          ref={passwordRef}
-        />
+            <TextInput
+                style={styles.input}
+                placeholder="Password"
+                value={password}
+                onChangeText={setPassword}
+                autoComplete="current-password"
+                autoCorrect={false}    
+                inputMode="text"
+                secureTextEntry={true}
+                accessibilityLabel="Password"
+                accessibilityHint="Enter your password"
+                returnKeyType="done"
+                onSubmitEditing={handleEmailLogin}
+                ref={passwordRef}
+            />
 
-        <TouchableOpacity 
-          style={[styles.button, styles.signupButton]}
-          onPress={handleEmailLogin}
-        >
-          <ThemedText style={styles.buttonText}>
-            { isLoading ? 'Working...' : 'Sign In' }
-        </ThemedText>
-        </TouchableOpacity>
+            <TouchableOpacity 
+                style={[styles.button, styles.signupButton]}
+                onPress={handleEmailLogin}
+            >
+                <ThemedText style={styles.buttonText}>
+                    { isLoading ? 'Working...' : 'Sign In' }
+                </ThemedText>
+            </TouchableOpacity>
 
 
-        <Link style={styles.linkText} href="/(account)/create">
-          <ThemedText style={styles.linkText}>
-            Need an account?
-          </ThemedText>
-        </Link>
+            <Link style={styles.linkText} href="/(account)/create">
+                <ThemedText style={styles.linkText}>
+                    Need an account?
+                </ThemedText>
+            </Link>
 
-        <Link style={styles.linkText} href="/(account)/reset-password">
-          <ThemedText style={styles.linkText}>
-            Forgot Password?
-          </ThemedText>
-        </Link>
-    </View>    
-  );
+            <Link style={styles.linkText} href="/(account)/reset-password">
+                <ThemedText style={styles.linkText}>
+                    Forgot Password?
+                </ThemedText>
+            </Link>
+        </View>    
+    );
 }
 
 const styles = StyleSheet.create({
@@ -139,26 +131,26 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         marginBottom: 15,
         alignItems: 'center',
-      },
-      buttonText: {
+    },
+    buttonText: {
         color: '#FFFFFF',
         fontSize: 16,
         fontWeight: 'bold',
-      },
-      signupButton: {
+    },
+    signupButton: {
         backgroundColor: '#DB4437',
-      },
-      errorText: {
+    },
+    errorText: {
         color: 'red',
         marginTop: 10,
         textAlign: 'center',
-      },
-      linkText: {
+    },
+    linkText: {
         color: 'blue',
         textDecorationLine: 'underline',
-      },
-      loginText: {
+    },
+    loginText: {
         fontSize: 14,
         color: '#666666',
-      },
+    },
 })
