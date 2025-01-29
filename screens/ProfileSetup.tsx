@@ -4,6 +4,7 @@ import { Checkbox } from 'react-native-paper';
 import Slider from '@react-native-community/slider';
 import { SelectList } from 'react-native-dropdown-select-list';
 import { Colors } from '../constants/Colors';
+import { router } from 'expo-router';
 
 interface DatingApp {
     app: string;
@@ -66,6 +67,15 @@ export default function ProfileSetup() {
 
     const addContact = () => {
         setContacts([...contacts, { name: '', email: '', relationship: '' }]);
+    };
+
+    const generateCustomInviteLink = () => {
+        // TODO: Implement invite link generation
+        console.log('Generating custom invite link...');
+    };
+
+    const goToNotifications = () => {
+        router.replace('/(account)/notifications');
     };
 
     return (
@@ -216,27 +226,29 @@ export default function ProfileSetup() {
                 
                 {contacts.map((contact, index) => (
                     <View key={index} style={styles.contactInputContainer}>
-                        <TextInput
-                            style={styles.input}
-                            value={contact.name}
-                            onChangeText={(text) => {
-                                const newContacts = [...contacts];
-                                newContacts[index].name = text;
-                                setContacts(newContacts);
-                            }}
-                            placeholder="Name"
-                        />
-                        <TextInput
-                            style={styles.input}
-                            value={contact.email}
-                            onChangeText={(text) => {
-                                const newContacts = [...contacts];
-                                newContacts[index].email = text;
-                                setContacts(newContacts);
-                            }}
-                            placeholder="Email"
-                            keyboardType="email-address"
-                        />
+                        <View style={styles.contactRowContainer}>
+                            <TextInput
+                                style={styles.input}
+                                value={contact.name}
+                                onChangeText={(text) => {
+                                    const newContacts = [...contacts];
+                                    newContacts[index].name = text;
+                                    setContacts(newContacts);
+                                }}
+                                placeholder="Name"
+                            />
+                            <TextInput
+                                style={styles.input}
+                                value={contact.email}
+                                onChangeText={(text) => {
+                                    const newContacts = [...contacts];
+                                    newContacts[index].email = text;
+                                    setContacts(newContacts);
+                                }}
+                                placeholder="Email"
+                                keyboardType="email-address"
+                            />
+                        </View>
                         <SelectList
                             setSelected={(val: string) => {
                                 const newContacts = [...contacts];
@@ -253,6 +265,28 @@ export default function ProfileSetup() {
                 
                 <Pressable style={styles.button} onPress={addContact}>
                     <Text style={styles.buttonText}>Add Another Person</Text>
+                </Pressable>
+            </View>
+
+            {/* Step 4 */}
+            <View style={styles.section}>
+                <Text style={styles.sectionTitle}>Step 4: Invite Your People</Text>
+                <Text style={styles.description}>
+                    Send this link however you prefer. Your people will be asked to download Vested & create a profile that is connected to yours through this link.
+                </Text>
+                <Pressable style={styles.button} onPress={generateCustomInviteLink}>
+                    <Text style={styles.buttonText}>Generate Custom Invite Link</Text>
+                </Pressable>
+            </View>
+
+            {/* Step 5 */}
+            <View style={styles.section}>
+                <Text style={styles.sectionTitle}>What happens now?</Text>
+                <Text style={styles.description}>
+                    You'll be notified once your people are logged in and ready to review matches for you.
+                </Text>
+                <Pressable style={styles.button} onPress={goToNotifications}>
+                    <Text style={styles.buttonText}>Set notification preferences</Text>
                 </Pressable>
             </View>
         </ScrollView>
@@ -279,6 +313,12 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 16,
     },
+    description: {
+        fontSize: 16,
+        color: '#666',
+        marginBottom: 16,
+        lineHeight: 24,
+    },
     input: {
         borderWidth: 1,
         borderColor: '#ccc',
@@ -301,6 +341,11 @@ const styles = StyleSheet.create({
     },
     contactInputContainer: {
         marginBottom: 16,
+    },
+    contactRowContainer: {
+        flexDirection: 'row',
+        gap: 12,
+        marginBottom: 12,
     },
     dropdown: {
         borderWidth: 1,
