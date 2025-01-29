@@ -3,7 +3,7 @@ import { View, Text, TextInput, ScrollView, StyleSheet, Pressable } from 'react-
 import { Checkbox } from 'react-native-paper';
 import Slider from '@react-native-community/slider';
 import { SelectList } from 'react-native-dropdown-select-list';
-import Colors from '../constants/Colors';
+import { Colors } from '../constants/Colors';
 
 interface DatingApp {
     app: string;
@@ -19,9 +19,16 @@ interface Contact {
 export default function ProfileSetup() {
     // Step 1 state
     const [reasons, setReasons] = useState({
-        findPartner: false,
-        makeConnections: false,
-        justCurious: false,
+        newToDating: false,
+        currentAppsNotWorking: false,
+        overwhelmed: false,
+        feelAloneInDatingJourney: false,
+        secondOpinion: false,
+        screeningHelp: false,
+        friendsRecommend: false,
+        otherPeopleKnowMeBetter: false,
+        funWithFriends: false,
+        bringCommunityOnDatingJourney: false,
         other: false,
     });
     const [otherReason, setOtherReason] = useState('');
@@ -63,33 +70,87 @@ export default function ProfileSetup() {
 
     return (
         <ScrollView style={styles.container}>
-            <Text style={styles.title}>Profile Setup</Text>
+            <Text style={styles.title}>Welcome to Vested!</Text>
 
             {/* Step 1 */}
             <View style={styles.section}>
                 <Text style={styles.sectionTitle}>Step 1: Tell us why you're here</Text>
                 
                 <Checkbox.Item
-                    label="Find a long-term partner"
-                    status={reasons.findPartner ? 'checked' : 'unchecked'}
-                    onPress={() => setReasons(prev => ({ ...prev, findPartner: !prev.findPartner }))}
+                    label="I'm new to dating apps and need help"
+                    status={reasons.newToDating ? 'checked' : 'unchecked'}
+                    onPress={() => setReasons(prev => ({ ...prev, newToDating: !prev.newToDating }))}
+                    position="leading"
                 />
                 <Checkbox.Item
-                    label="Make meaningful connections"
-                    status={reasons.makeConnections ? 'checked' : 'unchecked'}
-                    onPress={() => setReasons(prev => ({ ...prev, makeConnections: !prev.makeConnections }))}
+                    label="The current apps aren't working for me"
+                    status={reasons.currentAppsNotWorking ? 'checked' : 'unchecked'}
+                    onPress={() => setReasons(prev => ({ ...prev, currentAppsNotWorking: !prev.currentAppsNotWorking }))}
+                    position="leading"
                 />
                 <Checkbox.Item
-                    label="Just curious"
-                    status={reasons.justCurious ? 'checked' : 'unchecked'}
-                    onPress={() => setReasons(prev => ({ ...prev, justCurious: !prev.justCurious }))}
+                    label="I'm overwhelmed by all the choices"
+                    status={reasons.overwhelmed ? 'checked' : 'unchecked'}
+                    onPress={() => setReasons(prev => ({ ...prev, overwhelmed: !prev.overwhelmed }))}
+                    position="leading"
                 />
+                
+                <Checkbox.Item
+                    label="I feel alone in my dating journey"
+                    status={reasons.feelAloneInDatingJourney ? 'checked' : 'unchecked'}
+                    onPress={() => setReasons(prev => ({ ...prev, feelAloneInDatingJourney: !prev.feelAloneInDatingJourney }))}
+                    position="leading"
+                />
+                
+                <Checkbox.Item
+                    label="I want a second opinion"
+                    status={reasons.secondOpinion ? 'checked' : 'unchecked'}
+                    onPress={() => setReasons(prev => ({ ...prev, secondOpinion: !prev.secondOpinion }))}
+                    position="leading"
+                />
+
+                <Checkbox.Item
+                    label="The people I've met on dating apps are nothing like their profiles. I need help with screening"
+                    status={reasons.screeningHelp ? 'checked' : 'unchecked'}
+                    onPress={() => setReasons(prev => ({ ...prev, screeningHelp: !prev.screeningHelp }))}
+                    position="leading"
+                />
+                
+                <Checkbox.Item
+                    label="I think my friends might be better at finding a partner than I am"
+                    status={reasons.friendsRecommend ? 'checked' : 'unchecked'}
+                    onPress={() => setReasons(prev => ({ ...prev, friendsRecommend: !prev.friendsRecommend }))}
+                    position="leading"
+                />
+
+                <Checkbox.Item
+                    label="Sometimes other people know me better than I know myself"
+                    status={reasons.otherPeopleKnowMeBetter ? 'checked' : 'unchecked'}
+                    onPress={() => setReasons(prev => ({ ...prev, otherPeopleKnowMeBetter: !prev.otherPeopleKnowMeBetter }))}
+                    position="leading"
+                />
+
+                <Checkbox.Item
+                    label="I think it would be fun to do this with my friends"
+                    status={reasons.funWithFriends ? 'checked' : 'unchecked'}
+                    onPress={() => setReasons(prev => ({ ...prev, funWithFriends: !prev.funWithFriends }))}
+                    position="leading"
+                />
+
+                <Checkbox.Item
+                    label="I want to bring my community along on my dating journey"
+                    status={reasons.bringCommunityOnDatingJourney ? 'checked' : 'unchecked'}
+                    onPress={() => setReasons(prev => ({ ...prev, bringCommunityOnDatingJourney: !prev.bringCommunityOnDatingJourney }))}
+                    position="leading"
+                />
+
                 <Checkbox.Item
                     label="Other"
                     status={reasons.other ? 'checked' : 'unchecked'}
                     onPress={() => setReasons(prev => ({ ...prev, other: !prev.other }))}
+                    position="leading"
                 />
-                
+
                 {reasons.other && (
                     <TextInput
                         style={styles.input}
