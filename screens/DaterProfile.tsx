@@ -1,4 +1,4 @@
-import { Text, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Text, StyleSheet, TouchableOpacity, View, ScrollView } from "react-native";
 import { useEffect, useState } from "react";
 import { ThemedText } from "@/components/ThemedText";
 
@@ -72,7 +72,7 @@ export default function DaterProfile() {
   }, [profile.matchRecommendations, profile.friends]);
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       {/* App Bar */}
       <View style={styles.appBar}>
         <ThemedText style={styles.appTitle}>Vested</ThemedText>
@@ -147,7 +147,7 @@ export default function DaterProfile() {
           </View>
         )}
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
