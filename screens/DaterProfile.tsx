@@ -1,15 +1,15 @@
 import { Text, StyleSheet, TouchableOpacity, View } from "react-native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ThemedText } from "@/components/ThemedText";
 
 interface DaterProfileProps {
   name: string;
-  matchRecommendations: Array<MatchRecommendationsProps>;
+  matchRecommendations: Array<MatchRecommendation>;
   reviewingMatches: number;
   friends: Array<FriendsProps>;
 }
 
-interface MatchRecommendationsProps {
+interface MatchRecommendation {
   name: string;
   link: string;
   rankScore: number;
@@ -21,16 +21,55 @@ interface FriendsProps {
 }
 
 export default function DaterProfile() {
-
   const [profile, setProfile] = useState<DaterProfileProps>({
     name: "John Doe",
-    matchRecommendations: [],
-    reviewingMatches: 0,
-    friends: [],
+    matchRecommendations: [
+      {
+        name: "Sarah Parker",
+        link: "/profiles/sarah-parker",
+        rankScore: 92
+      },
+      {
+        name: "Emily Johnson",
+        link: "/profiles/emily-johnson",
+        rankScore: 88
+      },
+      {
+        name: "Michael Chen",
+        link: "/profiles/michael-chen",
+        rankScore: 85
+      }
+    ],
+    reviewingMatches: 2,
+    friends: [
+      {
+        name: "Alex Rivera",
+        vestedScore: 95
+      },
+      {
+        name: "Jessica Kim",
+        vestedScore: 88
+      },
+      {
+        name: "David Thompson",
+        vestedScore: 82
+      }
+    ],
   });
 
-  const [showRecommendations, setShowRecommendations] = useState(true);
-  const [showFriends, setShowFriends] = useState(true);
+  const [showRecommendations, setShowRecommendations] = useState(false);
+  const [showFriends, setShowFriends] = useState(false);
+
+
+  useEffect(() => {
+    if (profile.matchRecommendations.length > 0) {
+      setShowRecommendations(true);
+    }
+
+    if (profile.friends.length > 0) {
+      setShowFriends(true);
+    }
+  }, [profile.matchRecommendations, profile.friends]);
 
   return (
     <View style={styles.container}>
@@ -55,11 +94,19 @@ export default function DaterProfile() {
             {showRecommendations ? '▼' : '▶'}
           </Text>
         </TouchableOpacity>
-        
+
         {showRecommendations && (
           <View style={styles.cardContent}>
-            {/* TODO: Add match recommendations content */}
-            <ThemedText>Your match recommendations will appear here</ThemedText>
+            {profile.matchRecommendations.length > 0 ? (
+              profile.matchRecommendations.map((match, index) => (
+                <View key={index} style={styles.matchRow}>
+                  <ThemedText style={styles.matchName}>{match.name}</ThemedText>
+                  <ThemedText style={styles.matchScore}>Match Score: {match.rankScore}%</ThemedText>
+                </View>
+              ))
+            ) : (
+              <ThemedText>No match recommendations available</ThemedText>
+            )}
           </View>
         )}
       </View>
@@ -85,12 +132,18 @@ export default function DaterProfile() {
         
         {showFriends && (
           <View style={styles.cardContent}>
-            {profile.friends.map((friend, index) => (
-              <View key={index} style={styles.friendRow}>
-                <ThemedText>{friend.name}</ThemedText>
-                <ThemedText>Vested Score: {friend.vestedScore}</ThemedText>
-              </View>
-            ))}
+            {profile.friends.length > 0 ? (
+              profile.friends.map((friend, index) => (
+                <View key={index} style={styles.friendRow}>
+                  <ThemedText style={styles.friendName}>{friend.name}</ThemedText>
+                  <ThemedText style={styles.friendScore}>
+                    Vested Score: {friend.vestedScore}%
+                  </ThemedText>
+                </View>
+              ))
+            ) : (
+              <ThemedText>No friends added yet</ThemedText>
+            )}
           </View>
         )}
       </View>
@@ -155,4 +208,28 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#eee',
   },
+  matchRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
+  },
+  matchName: {
+    fontSize: 16,
+    fontWeight: '500',
+  },
+  matchScore: {
+    fontSize: 14,
+    color: '#666',
+  },
+  friendName: {
+    fontSize: 16,
+    fontWeight: '500',
+  },
+  friendScore: {
+    fontSize: 14,
+    color: '#666',
+  }
 });
