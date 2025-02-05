@@ -163,84 +163,84 @@ export default function DaterProfile() {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-  },
-  appBar: {
-    backgroundColor: '#1a1a1a',
-    padding: 16,
-    marginBottom: 16,
-  },
-  appTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: 'white',
-  },
-  dashboardTitle: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    marginVertical: 24,
-  },
-  card: {
-    backgroundColor: 'white',
-    borderRadius: 8,
-    padding: 16,
-    marginBottom: 16,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
+    container: {
+        flex: 1,
+        padding: 20,
     },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  cardHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  cardTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  toggleIcon: {
-    fontSize: 20,
-    padding: 4,
-  },
-  cardContent: {
-    paddingTop: 16,
-  },
-  friendRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingVertical: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
-  },
-  matchRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
-  },
-  matchName: {
-    fontSize: 16,
-    fontWeight: '500',
-  },
-  matchScore: {
-    fontSize: 14,
-    color: '#666',
-  },
-  friendName: {
-    fontSize: 16,
-    fontWeight: '500',
-  },
-  friendScore: {
-    fontSize: 14,
-    color: '#666',
-  }
+    appBar: {
+        backgroundColor: '#1a1a1a',
+        padding: 16,
+        marginBottom: 16,
+    },
+    appTitle: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: 'white',
+    },
+    dashboardTitle: {
+        fontSize: 32,
+        fontWeight: 'bold',
+        marginVertical: 24,
+    },
+    card: {
+        backgroundColor: 'white',
+        borderRadius: 8,
+        padding: 16,
+        marginBottom: 16,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 2,
+    },
+    cardHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    cardTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+    toggleIcon: {
+        fontSize: 20,
+        padding: 4,
+    },
+    cardContent: {
+        paddingTop: 16,
+    },
+    friendRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingVertical: 8,
+        borderBottomWidth: 1,
+        borderBottomColor: '#eee',
+    },
+    matchRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingVertical: 12,
+        borderBottomWidth: 1,
+        borderBottomColor: '#eee',
+    },
+    matchName: {
+        fontSize: 16,
+        fontWeight: '500',
+    },
+    matchScore: {
+        fontSize: 14,
+        color: '#666',
+    },
+    friendName: {
+        fontSize: 16,
+        fontWeight: '500',
+    },
+    friendScore: {
+        fontSize: 14,
+        color: '#666',
+    }
 });
