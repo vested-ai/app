@@ -73,20 +73,26 @@ export default function DaterProfile() {
 
   return (
     <ScrollView style={styles.container}>
-      {/* App Bar */}
-      <View style={styles.appBar}>
+      <View 
+        style={styles.appBar}
+        accessibilityRole="banner"
+      >
         <ThemedText style={styles.appTitle}>Vested</ThemedText>
       </View>
 
-      {/* Title */}
-      <ThemedText style={styles.dashboardTitle}>
+      <ThemedText 
+        style={styles.dashboardTitle}
+        accessibilityRole="header"
+      >
         {profile.name}'s Vested Dashboard
       </ThemedText>
 
-      {/* Match Recommendations Section */}
       <View style={styles.card}>
         <TouchableOpacity 
           style={styles.cardHeader}
+          accessibilityRole="button"
+          accessibilityLabel="Toggle match recommendations"
+          accessibilityHint="Double tap to show or hide match recommendations"
           onPress={() => setShowRecommendations(!showRecommendations)}
         >
           <ThemedText style={styles.cardTitle}>Match Recommendations</ThemedText>
@@ -101,11 +107,13 @@ export default function DaterProfile() {
               profile.matchRecommendations
                 .sort((a, b) => b.rankScore - a.rankScore)
                 .map((match, index) => (
-                <View key={index} style={styles.matchRow}>
-                  <ThemedText style={styles.matchName}>{match.name}</ThemedText>
-                  <ThemedText style={styles.matchScore}>Match Score: {match.rankScore}%</ThemedText>
-                </View>
-              ))
+                  <View key={index} style={styles.matchRow}>
+                    <ThemedText style={styles.matchName}>{match.name}</ThemedText>
+                    <ThemedText style={styles.matchScore}>
+                      Match Score: {match.rankScore}%
+                    </ThemedText>
+                  </View>
+                ))
             ) : (
               <ThemedText>No match recommendations available</ThemedText>
             )}
@@ -113,14 +121,12 @@ export default function DaterProfile() {
         )}
       </View>
 
-      {/* Matches Under Review Section */}
       <View style={styles.card}>
         <ThemedText style={styles.cardTitle}>
           {profile.reviewingMatches} matches being reviewed by friends
         </ThemedText>
       </View>
 
-      {/* Friends Section */}
       <View style={styles.card}>
         <TouchableOpacity 
           style={styles.cardHeader}
@@ -138,13 +144,13 @@ export default function DaterProfile() {
               profile.friends
                 .sort((a, b) => b.vestedScore - a.vestedScore)
                 .map((friend, index) => (
-                <View key={index} style={styles.friendRow}>
-                  <ThemedText style={styles.friendName}>{friend.name}</ThemedText>
-                  <ThemedText style={styles.friendScore}>
-                    Vested Score: {friend.vestedScore}%
-                  </ThemedText>
-                </View>
-              ))
+                  <View key={index} style={styles.friendRow}>
+                    <ThemedText style={styles.friendName}>{friend.name}</ThemedText>
+                    <ThemedText style={styles.friendScore}>
+                      Vested Score: {friend.vestedScore}%
+                    </ThemedText>
+                  </View>
+                ))
             ) : (
               <ThemedText>No friends added yet</ThemedText>
             )}
@@ -152,6 +158,7 @@ export default function DaterProfile() {
         )}
       </View>
     </ScrollView>
+  );
   );
 };
 
