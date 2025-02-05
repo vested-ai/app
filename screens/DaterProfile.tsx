@@ -98,7 +98,9 @@ export default function DaterProfile() {
         {showRecommendations && (
           <View style={styles.cardContent}>
             {profile.matchRecommendations.length > 0 ? (
-              profile.matchRecommendations.map((match, index) => (
+              profile.matchRecommendations
+                .sort((a, b) => b.rankScore - a.rankScore)
+                .map((match, index) => (
                 <View key={index} style={styles.matchRow}>
                   <ThemedText style={styles.matchName}>{match.name}</ThemedText>
                   <ThemedText style={styles.matchScore}>Match Score: {match.rankScore}%</ThemedText>
@@ -133,7 +135,9 @@ export default function DaterProfile() {
         {showFriends && (
           <View style={styles.cardContent}>
             {profile.friends.length > 0 ? (
-              profile.friends.map((friend, index) => (
+              profile.friends
+                .sort((a, b) => b.vestedScore - a.vestedScore)
+                .map((friend, index) => (
                 <View key={index} style={styles.friendRow}>
                   <ThemedText style={styles.friendName}>{friend.name}</ThemedText>
                   <ThemedText style={styles.friendScore}>
