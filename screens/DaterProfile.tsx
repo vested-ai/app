@@ -159,7 +159,6 @@ export default function DaterProfile() {
       </View>
     </ScrollView>
   );
-  );
 };
 
 const styles = StyleSheet.create({
