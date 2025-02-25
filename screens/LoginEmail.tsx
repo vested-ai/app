@@ -33,7 +33,8 @@ export default function LoginEmail() {
             setIsLoading(true);
             // TODO: Implement login API with rate limiting
             // await loginUser({ email, password });
-            router.replace('/(account)/profile');
+            // TODO: Send user to either a dater profile or a friend profile
+            router.replace('/(account)/daterprofile');
         
         } catch (_err) {
             setError('Invalid email or password');  // Don't expose specific errors
