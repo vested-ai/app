@@ -4,6 +4,15 @@ import { View, StyleSheet, Pressable, TouchableOpacity } from "react-native";
 import { Text } from "react-native";
 import { Checkbox } from "react-native-paper";
 
+/**
+ * Renders the PersonaSetup component for selecting a user persona and accepting required agreements.
+ *
+ * This component presents options for joining Vested as either a "dater" or a "friend" and manages the state of the selected persona,
+ * as well as the acceptance status of the Terms & Conditions and Privacy Policy. It validates that the required fields are complete,
+ * and upon confirmation, navigates the user to the appropriate profile setup screen.
+ *
+ * @returns The PersonaSetup component as a JSX element.
+ */
 export default function PersonaSetup() {
 
     const [persona, setPersona] = useState<'dater' | 'friend'>('dater');    
