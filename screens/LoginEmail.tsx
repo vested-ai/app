@@ -45,7 +45,7 @@ export default function LoginEmail() {
 
     return (
         <View style={styles.container}>
-            <Text>Sign In With Email</Text>
+            <Text style={styles.title}>Login With Email</Text>
         
             { error && (<Text style={styles.errorText}>{error}</Text>) }
 
@@ -90,7 +90,7 @@ export default function LoginEmail() {
                 onPress={handleEmailLogin}
             >
                 <ThemedText style={styles.buttonText}>
-                    { isLoading ? 'Working...' : 'Sign In' }
+                    { isLoading ? 'Working...' : 'Login' }
                 </ThemedText>
             </TouchableOpacity>
 
@@ -101,7 +101,7 @@ export default function LoginEmail() {
                 </ThemedText>
             </Link>
 
-            <Link style={styles.linkText} href="/(account)/reset-password">
+            <Link style={styles.linkText} href="/(login)/forgotpassword">
                 <ThemedText style={styles.linkText}>
                     Forgot Password?
                 </ThemedText>
@@ -125,11 +125,13 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         paddingHorizontal: 10,
         marginTop: 20,
+        fontSize: 16,
     },
     button: {
         width: '100%',
         padding: 15,
         borderRadius: 8,
+        marginTop: 15,
         marginBottom: 15,
         alignItems: 'center',
     },
@@ -153,5 +155,10 @@ const styles = StyleSheet.create({
     loginText: {
         fontSize: 14,
         color: '#666666',
+    },
+    title: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 10,
     },
 })
