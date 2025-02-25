@@ -154,6 +154,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: 20,
+        marginTop: 15,
     },
     input: {
         width: '100%',
