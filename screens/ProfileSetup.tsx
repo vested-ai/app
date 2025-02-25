@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, ScrollView, StyleSheet, Pressable } from 'react-native';
+import { View, Text, TextInput, ScrollView, StyleSheet, Pressable, TouchableOpacity } from 'react-native';
 import { Checkbox } from 'react-native-paper';
 import Slider from '@react-native-community/slider';
 import { SelectList } from 'react-native-dropdown-select-list';
 import { Colors } from '../constants/Colors';
 import { router } from 'expo-router';
+import { ThemedText } from '@/components/ThemedText';
 
 interface DatingApp {
     app: string;
@@ -77,6 +78,10 @@ export default function ProfileSetup() {
     const goToNotifications = () => {
         router.replace('/(account)/notifications');
     };
+
+    const goToProfile = () => {
+        router.replace('/(account)/daterprofile');   
+    }
 
     return (
         <ScrollView style={styles.container}>
@@ -292,6 +297,15 @@ export default function ProfileSetup() {
                     <Text style={styles.buttonText}>Set notification preferences</Text>
                 </Pressable>
             </View>
+
+            <TouchableOpacity 
+                style={styles.button} 
+                onPress={goToProfile}
+            >
+                <ThemedText style={styles.buttonText}>
+                    View Profile
+                </ThemedText>
+            </TouchableOpacity>
         </ScrollView>
     );
 }
