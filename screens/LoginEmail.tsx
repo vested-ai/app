@@ -15,7 +15,7 @@ export default function LoginEmail() {
     const emailRef = useRef<TextInput>(null);
     const passwordRef = useRef<TextInput>(null);
 
-    
+
     const handleEmailLogin = () => {
         setError(null);
 
@@ -32,10 +32,7 @@ export default function LoginEmail() {
 
         try {
             setIsLoading(true);
-            // TODO: Implement login API with rate limiting
-            // await loginUser({ email, password });
-            // TODO: Send user to either a dater profile or a friend profile
-            router.replace('/(account)/daterprofile');
+            router.replace('/(profile)/daterprofile');
         
         } catch (_err) {
             setError('Invalid email or password');  // Don't expose specific errors

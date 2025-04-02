@@ -29,7 +29,7 @@ export default function PersonaSetup() {
         if (!requiredFieldsComplete) {
             return;
         }
-        router.replace(persona === 'dater' ? '/(account)/daterprofile' : '/(account)/friendprofile');
+        router.replace(persona === 'dater' ? '/(profile)/daterprofile' : '/(profile)/friendprofile');
     };
 
     return (
