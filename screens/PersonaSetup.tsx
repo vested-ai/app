@@ -33,7 +33,7 @@ export default function PersonaSetup() {
     };
 
     return (
-        <View style={styles.container} accessibilityRole="main">
+        <View style={styles.container}>
             <Text style={styles.header} accessibilityRole="header">I am joining Vested as a:</Text>
 
             <View style={styles.buttonContainer} accessibilityRole="radiogroup">
@@ -71,8 +71,6 @@ export default function PersonaSetup() {
                     onPress={() => setTermsAccepted(!termsAccepted)}
                     position="leading"
                     accessibilityLabel="Accept Vested Terms & Conditions"
-                    accessibilityHint="Required. Check to accept the Terms and Conditions"
-                    accessibilityRole="checkbox"
                     color={Colors.brandPink}
                     style={commonStyles.checkboxItem}
                 />
@@ -82,8 +80,6 @@ export default function PersonaSetup() {
                     onPress={() => setPrivacyPolicyAccepted(!privacyPolicyAccepted)}
                     position="leading"
                     accessibilityLabel="Accept Vested Privacy Policy"
-                    accessibilityHint="Required. Check to accept the Privacy Policy"
-                    accessibilityRole="checkbox"
                     color={Colors.brandPink}
                     style={commonStyles.checkboxItem}
                 />
