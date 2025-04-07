@@ -1,8 +1,19 @@
+// React core
+import React, { useState, useEffect } from 'react';
+
+// React Native components
+import { StyleSheet, Pressable, TouchableOpacity, ScrollView, View } from "react-native";
+
+// Third-party libraries
 import { router } from "expo-router";
-import { useState, useEffect } from "react";
-import { View, StyleSheet, Pressable, TouchableOpacity } from "react-native";
-import { Text } from "react-native";
 import { Checkbox } from "react-native-paper";
+
+// Local components
+import { AppBar } from '@/components/AppBar';
+import { ThemedText } from '@/components/ThemedText';
+import { ThemedView } from '@/components/ThemedView';
+
+// Local styles and constants
 import { Colors } from "@/constants/Colors";
 import { commonStyles } from "@/styles/common";
 
@@ -29,42 +40,61 @@ export default function PersonaSetup() {
         if (!requiredFieldsComplete) {
             return;
         }
-        router.replace(persona === 'dater' ? '/(profile)/daterprofile' : '/(profile)/friendprofile');
+        router.replace(persona === 'dater' ? '/(profile)/daterdashboard' : '/(profile)/frienddashboard');
     };
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.header} accessibilityRole="header">I am joining Vested as a:</Text>
+        <ScrollView style={[commonStyles.container, commonStyles.contentContainer]}>
+            <AppBar />
 
-            <View style={styles.buttonContainer} accessibilityRole="radiogroup">
-                <Pressable 
-                    style={persona === 'dater' ? [styles.button, styles.buttonSelected] : [styles.button]} 
-                    onPress={() => setPersona('dater')}
-                    accessibilityRole="radio"
-                    accessibilityState={{ selected: persona === 'dater' }}
-                    accessibilityLabel="Join as a Dater"
-                    accessibilityHint="Select to join Vested as someone looking for dates"
-                >
-                    <Text style={persona === 'dater' ? [styles.buttonText, styles.buttonSelectedText] : styles.buttonText}>Dater</Text>
-                </Pressable>
+            <ThemedText style={commonStyles.title} accessibilityRole="header">
+                Choose Your Persona
+            </ThemedText>
+            <ThemedView style={commonStyles.section}>
+                <ThemedText style={commonStyles.sectionSubtitle} accessibilityRole="text">
+                    Choose your primary persona to begin. You can change your persona in your Profile settings at any time.
+                </ThemedText>
+                <ThemedText style={commonStyles.sectionTitle} accessibilityRole="text">
+                    I am joining Vested as a:
+                </ThemedText>
 
-                <Pressable 
-                    style={persona === 'friend' ? [styles.button, styles.buttonSelected] : [styles.button]} 
-                    onPress={() => setPersona('friend')}
-                    accessibilityRole="radio"
-                    accessibilityState={{ selected: persona === 'friend' }}
-                    accessibilityLabel="Join as a Friend"
-                    accessibilityHint="Select to join Vested as someone helping friends find dates"
-                >
-                    <Text style={persona === 'friend' ? [styles.buttonText, styles.buttonSelectedText] : styles.buttonText}>Friend</Text>    
-                </Pressable>    
-            </View>
+                <ThemedView style={styles.buttonContainer} accessibilityRole="radiogroup">
+                    <Pressable 
+                        style={persona === 'dater' ? [styles.personaButton, styles.personaButtonSelected] : styles.personaButton} 
+                        onPress={() => setPersona('dater')}
+                        accessibilityRole="radio"
+                        accessibilityState={{ selected: persona === 'dater' }}
+                        accessibilityLabel="Join as a Dater"
+                        accessibilityHint="Select to join Vested as someone looking for dates"
+                    >
+                        <ThemedText style={persona === 'dater' ? [styles.personaButtonText, styles.personaButtonTextSelected] : styles.personaButtonText}>
+                            Dater
+                        </ThemedText>
+                        <ThemedText style={persona === 'dater' ? styles.personaSelectedText : styles.personaText}>
+                            Looking for meaningful connections
+                        </ThemedText>
+                    </Pressable>
 
-            <Text style={styles.text} accessibilityRole="text">
-                Choose your primary persona to begin. You can add or change your persona in your Profile settings at any time.
-            </Text>
+                    <Pressable 
+                        style={persona === 'friend' ? [styles.personaButton, styles.personaButtonSelected] : styles.personaButton} 
+                        onPress={() => setPersona('friend')}
+                        accessibilityRole="radio"
+                        accessibilityState={{ selected: persona === 'friend' }}
+                        accessibilityLabel="Join as a Friend"
+                        accessibilityHint="Select to join Vested as someone helping friends find dates"
+                    >
+                        <ThemedText style={persona === 'friend' ? [styles.personaButtonText, styles.personaButtonTextSelected] : styles.personaButtonText}>
+                            Friend
+                        </ThemedText>
+                        <ThemedText style={persona === 'friend' ? styles.personaSelectedText : styles.personaText}>
+                            Helping friends find love
+                        </ThemedText>
+                    </Pressable>    
+                </ThemedView>
 
-            <View style={commonStyles.checkboxContainer}>
+            </ThemedView>
+        
+            <ThemedView style={commonStyles.checkboxContainer}>
                 <Checkbox.Item 
                     label="I accept the Vested Terms & Conditions"
                     status={termsAccepted ? 'checked' : 'unchecked'}
@@ -72,6 +102,7 @@ export default function PersonaSetup() {
                     position="leading"
                     accessibilityLabel="Accept Vested Terms & Conditions"
                     color={Colors.brandPink}
+                    uncheckedColor={Colors.brandGrayDarker}
                     style={commonStyles.checkboxItem}
                 />
                 <Checkbox.Item 
@@ -81,12 +112,13 @@ export default function PersonaSetup() {
                     position="leading"
                     accessibilityLabel="Accept Vested Privacy Policy"
                     color={Colors.brandPink}
+                    uncheckedColor={Colors.brandGrayDarker}
                     style={commonStyles.checkboxItem}
                 />
-            </View>
+            </ThemedView>
 
             <TouchableOpacity 
-                style={requiredFieldsComplete ? [styles.button, styles.buttonEnabled] : [styles.button, styles.buttonDisabled]}
+                style={requiredFieldsComplete ? [commonStyles.button, commonStyles.primaryButton] : [commonStyles.button, styles.buttonDisabled]}
                 onPress={handlePersonaSetup}
                 disabled={!requiredFieldsComplete}
                 accessibilityRole="button"
@@ -94,67 +126,51 @@ export default function PersonaSetup() {
                 accessibilityHint="Continues to profile setup once terms and privacy policy are accepted"
                 accessibilityState={{ disabled: !requiredFieldsComplete }}
             >
-                <Text style={requiredFieldsComplete ? [styles.buttonText, styles.buttonEnabledText] : [styles.buttonText, styles.buttonDisabledText]}>
+                <ThemedText style={requiredFieldsComplete ? commonStyles.buttonText : styles.buttonTextDisabled}>
                     I'm ready to be Vested
-                </Text>
+                </ThemedText>
             </TouchableOpacity>
-        </View>
+        </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    header: {
-        fontSize: 20,
-        fontWeight: 'bold',
-    },
     buttonContainer: {
-        flexDirection: 'row',
-        gap: 10,
-        margin: 20,
+        gap: 16,
+        marginVertical: 24,
     },
-    button: {
-        padding: 10,
-        borderRadius: 5,
-        borderWidth: 5,
-        borderColor: Colors.brandBlack,
+    personaButton: {
+        padding: 20,
+        borderRadius: 12,
+        borderWidth: 2,
+        borderColor: Colors.brandGray,
+        backgroundColor: Colors.brandWhite,
+    },
+    personaButtonSelected: {
+        borderColor: Colors.brandPink,
+        backgroundColor: Colors.brandGrayLightest,
+    },
+    personaButtonText: {
+        fontSize: 20,
+        fontWeight: '600',
+        color: Colors.brandGrayDark,
+        marginBottom: 8,
+    },
+    personaButtonTextSelected: {
+        color: Colors.brandPink,
+    },
+    personaSelectedText: {
+        color: Colors.brandGrayDarker,
+    },
+    personaText: {
+        color: Colors.brandGrayDark,
     },
     buttonDisabled: {
-        borderColor: Colors.brandGrayLight,
+        backgroundColor: Colors.brandGrayLight,
     },
-    buttonEnabled: {
-        backgroundColor: Colors.brandPink,
+    buttonTextDisabled: {
+        fontSize: 18,
+        fontWeight: '600',
+        color: Colors.brandGray,
     },
-    buttonSelected: {
-        backgroundColor: Colors.brandPink,
-    },
-    buttonText: {
-        fontWeight: 'bold',
-        fontSize: 16,
-    },
-    buttonDisabledText: {
-        color: Colors.brandGrayLight,
-    },
-    buttonSelectedText: {
-        color: Colors.brandWhite,
-    },
-    buttonEnabledText: {
-        color: Colors.brandWhite,
-    },
-    text: {
-        fontSize: 16,
-        textAlign: 'center',
-        marginTop: 20,
-    },
-    section: {
-        marginTop: 20,
-    },
-    checkboxContainer: {
-        marginTop: 20,
-        marginBottom: 20,
-    }, 
 });

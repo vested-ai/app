@@ -1,12 +1,25 @@
+// React core
 import React, { useState } from 'react';
-import { View, Text, TextInput, ScrollView, StyleSheet, Pressable, TouchableOpacity } from 'react-native';
+
+// React Native components
+import { Text, TextInput, ScrollView, Pressable, TouchableOpacity } from 'react-native';
+
+// Third-party libraries
 import { Checkbox } from 'react-native-paper';
 import Slider from '@react-native-community/slider';
 import { SelectList } from 'react-native-dropdown-select-list';
-import { Colors } from '../constants/Colors';
 import { router } from 'expo-router';
+
+// Local components
+import { AppBar } from '@/components/AppBar';
+import { Button } from '@/components/Button';
 import { ThemedText } from '@/components/ThemedText';
+import { ThemedTextInput } from '@/components/ThemedTextInput';
+import { ThemedView } from '@/components/ThemedView';
+
+// Local styles and constants
 import { commonStyles } from '@/styles/common';
+import { Colors } from '@/constants/Colors';
 
 interface DatingApp {
     app: string;
@@ -72,7 +85,6 @@ export default function ProfileSetup() {
     };
 
     const generateCustomInviteLink = () => {
-        // TODO: Implement invite link generation
         console.log('Generating custom invite link...');
     };
 
@@ -81,122 +93,153 @@ export default function ProfileSetup() {
     };
 
     const goToProfile = () => {
-        router.replace('/(account)/daterprofile');   
+        router.replace('/(profile)/daterdashboard');   
     }
 
     return (
         <ScrollView style={commonStyles.container} contentContainerStyle={commonStyles.contentContainer}>
-            <ThemedText style={commonStyles.dashboardTitle}>Welcome to Vested!</ThemedText>
+            <AppBar />
 
+            <ThemedText style={commonStyles.title}>
+                Welcome!
+            </ThemedText>
+            
             {/* Step 1 */}
-            <View style={commonStyles.formSection}>
-                <ThemedText style={commonStyles.formTitle}>Step 1: Tell us why you're here</ThemedText>
-                
+            <ThemedView style={commonStyles.section}>
+                <ThemedText style={commonStyles.sectionTitle}>
+                    Step 1: Tell us why you're here
+                </ThemedText>
+
                 <Checkbox.Item
                     label="I'm new to dating apps and need help"
                     status={reasons.newToDating ? 'checked' : 'unchecked'}
                     onPress={() => setReasons(prev => ({ ...prev, newToDating: !prev.newToDating }))}
                     position="leading"
+                    color={Colors.brandPink}
+                    uncheckedColor={Colors.brandGrayDarker}
                 />
                 <Checkbox.Item
                     label="The current apps aren't working for me"
                     status={reasons.currentAppsNotWorking ? 'checked' : 'unchecked'}
                     onPress={() => setReasons(prev => ({ ...prev, currentAppsNotWorking: !prev.currentAppsNotWorking }))}
                     position="leading"
+                    color={Colors.brandPink}
+                    uncheckedColor={Colors.brandGrayDarker}
                 />
                 <Checkbox.Item
                     label="I'm overwhelmed by all the choices"
                     status={reasons.overwhelmed ? 'checked' : 'unchecked'}
                     onPress={() => setReasons(prev => ({ ...prev, overwhelmed: !prev.overwhelmed }))}
                     position="leading"
+                    color={Colors.brandPink}
+                    uncheckedColor={Colors.brandGrayDarker}
                 />
-                
                 <Checkbox.Item
                     label="I feel alone in my dating journey"
                     status={reasons.feelAloneInDatingJourney ? 'checked' : 'unchecked'}
                     onPress={() => setReasons(prev => ({ ...prev, feelAloneInDatingJourney: !prev.feelAloneInDatingJourney }))}
                     position="leading"
+                    color={Colors.brandPink}
+                    uncheckedColor={Colors.brandGrayDarker}
                 />
-                
                 <Checkbox.Item
                     label="I want a second opinion"
                     status={reasons.secondOpinion ? 'checked' : 'unchecked'}
                     onPress={() => setReasons(prev => ({ ...prev, secondOpinion: !prev.secondOpinion }))}
                     position="leading"
+                    color={Colors.brandPink}
+                    uncheckedColor={Colors.brandGrayDarker}
                 />
-
                 <Checkbox.Item
                     label="The people I've met on dating apps are nothing like their profiles. I need help with screening"
                     status={reasons.screeningHelp ? 'checked' : 'unchecked'}
                     onPress={() => setReasons(prev => ({ ...prev, screeningHelp: !prev.screeningHelp }))}
                     position="leading"
+                    color={Colors.brandPink}
+                    uncheckedColor={Colors.brandGrayDarker}
                 />
-                
                 <Checkbox.Item
                     label="I think my friends might be better at finding a partner than I am"
                     status={reasons.friendsRecommend ? 'checked' : 'unchecked'}
                     onPress={() => setReasons(prev => ({ ...prev, friendsRecommend: !prev.friendsRecommend }))}
                     position="leading"
+                    color={Colors.brandPink}
+                    uncheckedColor={Colors.brandGrayDarker}
                 />
-
                 <Checkbox.Item
                     label="Sometimes other people know me better than I know myself"
                     status={reasons.otherPeopleKnowMeBetter ? 'checked' : 'unchecked'}
                     onPress={() => setReasons(prev => ({ ...prev, otherPeopleKnowMeBetter: !prev.otherPeopleKnowMeBetter }))}
                     position="leading"
+                    color={Colors.brandPink}
+                    uncheckedColor={Colors.brandGrayDarker}
                 />
-
                 <Checkbox.Item
                     label="I think it would be fun to do this with my friends"
                     status={reasons.funWithFriends ? 'checked' : 'unchecked'}
                     onPress={() => setReasons(prev => ({ ...prev, funWithFriends: !prev.funWithFriends }))}
                     position="leading"
+                    color={Colors.brandPink}
+                    uncheckedColor={Colors.brandGrayDarker}
                 />
-
                 <Checkbox.Item
                     label="I want to bring my community along on my dating journey"
                     status={reasons.bringCommunityOnDatingJourney ? 'checked' : 'unchecked'}
                     onPress={() => setReasons(prev => ({ ...prev, bringCommunityOnDatingJourney: !prev.bringCommunityOnDatingJourney }))}
                     position="leading"
+                    color={Colors.brandPink}
+                    uncheckedColor={Colors.brandGrayDarker}
                 />
-
                 <Checkbox.Item
                     label="Other"
                     status={reasons.other ? 'checked' : 'unchecked'}
                     onPress={() => setReasons(prev => ({ ...prev, other: !prev.other }))}
                     position="leading"
+                    color={Colors.brandPink}
+                    uncheckedColor={Colors.brandGrayDarker}
                 />
 
                 {reasons.other && (
                     <TextInput
-                        style={commonStyles.formInput}
+                        style={[commonStyles.formInput, commonStyles.shadow]}
                         value={otherReason}
                         onChangeText={setOtherReason}
                         placeholder="Tell us more..."
                     />
                 )}
+            </ThemedView>
 
-                <View style={commonStyles.formSliderContainer}>
-                    <Text>Casual</Text>
-                    <Slider
-                        style={commonStyles.formSlider}
-                        minimumValue={0}
-                        maximumValue={100}
-                        value={seriousness}
-                        onValueChange={setSeriousness}
-                        minimumTrackTintColor={Colors.brandPink}
-                        maximumTrackTintColor={Colors.brandGrayDarker}
-                    />
-                    <Text>Super Serious</Text>
-                </View>
-            </View>
+            
+            <ThemedView style={commonStyles.sliderContainer}>
+                <ThemedText style={commonStyles.sliderText}>
+                    Casual
+                </ThemedText>
+                <Slider
+                    style={commonStyles.slider}
+                    minimumValue={0}
+                    maximumValue={100}
+                    value={seriousness}
+                    onValueChange={setSeriousness}
+                    minimumTrackTintColor={Colors.brandGrayDarker}
+                    maximumTrackTintColor={Colors.brandGrayDarker}
+                    thumbTintColor={Colors.brandPink}
+                />
+                <ThemedText style={commonStyles.sliderText}>
+                    Super Serious
+                </ThemedText>
+            </ThemedView>
 
             {/* Step 2 */}
-            <View style={commonStyles.formSection}>
-                <ThemedText style={commonStyles.formTitle}>Step 2: Which dating apps do you want to use?</ThemedText>
+            <ThemedView style={commonStyles.section}>
+                <ThemedText style={commonStyles.sectionTitle}>
+                    Step 2: Which dating apps do you want to use?
+                </ThemedText>
+                <ThemedText style={commonStyles.sectionSubtitle}>
+                    We'll help you connect your dating apps to Vested.
+                </ThemedText>
                 
                 {datingApps.map((app, index) => (
-                    <View key={index} style={commonStyles.formSection}>
+                    <ThemedView key={index} style={commonStyles.section}>
                         <SelectList
                             setSelected={(val: string) => {
                                 const newApps = [...datingApps];
@@ -206,10 +249,13 @@ export default function ProfileSetup() {
                             data={datingAppOptions}
                             save="key"
                             placeholder="Select dating app"
-                            boxStyles={commonStyles.formDropdown}
+                            boxStyles={commonStyles.selectListBox}
+                            dropdownStyles={commonStyles.selectListDropdown}
+                            dropdownTextStyles={commonStyles.selectListDropdownText}
+                            inputStyles={commonStyles.selectListInput}
                         />
                         <TextInput
-                            style={commonStyles.formInput}
+                            style={[commonStyles.formInput, commonStyles.shadow]}
                             value={app.credentials}
                             onChangeText={(text) => {
                                 const newApps = [...datingApps];
@@ -221,43 +267,46 @@ export default function ProfileSetup() {
                             autoComplete="off"
                             textContentType="oneTimeCode"
                         />
-                    </View>
+                    </ThemedView>
                 ))}
                 
-                <Pressable style={commonStyles.formButton} onPress={addDatingApp}>
-                    <ThemedText style={commonStyles.formButtonText}>Add Another App</ThemedText>
-                </Pressable>
-            </View>
+                <Button onPress={addDatingApp} text="Add Another App" />
+            </ThemedView>
 
             {/* Step 3 */}
-            <View style={commonStyles.formSection}>
-                <ThemedText style={commonStyles.formTitle}>Step 3: Add More People</ThemedText>
+            <ThemedView style={commonStyles.section}>
+                <ThemedText style={commonStyles.sectionTitle}>
+                    Step 3: Add More People
+                </ThemedText>
+                <ThemedText style={commonStyles.sectionSubtitle}>
+                    Add the people you want to help you with your dating journey.
+                </ThemedText>
                 
                 {contacts.map((contact, index) => (
-                    <View key={index} style={commonStyles.formSection}>
-                        <View style={commonStyles.formRow}>
-                            <TextInput
-                                style={[commonStyles.formInput, { flex: 1 }]}
+                    <ThemedView key={index} style={commonStyles.section}>
+                        <ThemedView style={commonStyles.row}>
+                            <ThemedTextInput
+                                placeholder="Enter name"
                                 value={contact.name}
                                 onChangeText={(text) => {
                                     const newContacts = [...contacts];
                                     newContacts[index].name = text;
                                     setContacts(newContacts);
                                 }}
-                                placeholder="Name"
-                            />
-                            <TextInput
                                 style={[commonStyles.formInput, { flex: 1 }]}
+                            />
+                            <ThemedTextInput
+                                placeholder="Enter email"
                                 value={contact.email}
                                 onChangeText={(text) => {
                                     const newContacts = [...contacts];
                                     newContacts[index].email = text;
                                     setContacts(newContacts);
                                 }}
-                                placeholder="Email"
+                                style={[commonStyles.formInput, { flex: 1 }]}
                                 keyboardType="email-address"
                             />
-                        </View>
+                        </ThemedView>
                         <SelectList
                             setSelected={(val: string) => {
                                 const newContacts = [...contacts];
@@ -267,43 +316,60 @@ export default function ProfileSetup() {
                             data={relationshipOptions}
                             save="key"
                             placeholder="How did you meet?"
-                            boxStyles={commonStyles.formDropdown}
+                            boxStyles={commonStyles.selectListBox}
+                            dropdownStyles={commonStyles.selectListDropdown}
+                            dropdownTextStyles={commonStyles.selectListDropdownText}
+                            inputStyles={commonStyles.selectListInput}
                         />
-                    </View>
+                    </ThemedView>
                 ))}
                 
-                <Pressable style={commonStyles.formButton} onPress={addContact}>
-                    <ThemedText style={commonStyles.formButtonText}>Add Another Person</ThemedText>
+                <Pressable style={[commonStyles.button, commonStyles.primaryButton]} onPress={addContact}>
+                    <ThemedText style={commonStyles.buttonText}>Add Another Person</ThemedText>
                 </Pressable>
-            </View>
+            </ThemedView>
 
             {/* Step 4 */}
-            <View style={commonStyles.formSection}>
-                <ThemedText style={commonStyles.formTitle}>Step 4: Invite Your People</ThemedText>
-                <Text style={commonStyles.formDescription}>
+            <ThemedView style={commonStyles.section}>
+                <ThemedText style={commonStyles.sectionTitle}>
+                    Step 4: Invite Your People
+                </ThemedText>
+                <ThemedText style={commonStyles.sectionSubtitle}>
                     Send this link however you prefer. Your people will be asked to download Vested & create a profile that is connected to yours through this link.
-                </Text>
-                <Pressable style={commonStyles.formButton} onPress={generateCustomInviteLink}>
-                    <ThemedText style={commonStyles.formButtonText}>Generate Custom Invite Link</ThemedText>
+                </ThemedText>
+                <Pressable 
+                    style={[commonStyles.button, commonStyles.primaryButton]} 
+                    onPress={generateCustomInviteLink}
+                >
+                    <ThemedText style={commonStyles.buttonText}>
+                        Generate Custom Invite Link
+                    </ThemedText>
                 </Pressable>
-            </View>
+            </ThemedView>
 
             {/* Step 5 */}
-            <View style={commonStyles.formSection}>
-                <ThemedText style={commonStyles.formTitle}>What happens now?</ThemedText>
-                <Text style={commonStyles.formDescription}>
+            <ThemedView style={commonStyles.section}>
+                <ThemedText style={commonStyles.sectionTitle}>
+                    What happens now?
+                </ThemedText>
+                <ThemedText style={commonStyles.sectionSubtitle}>
                     You'll be notified once your people are logged in and ready to review matches for you.
-                </Text>
-                <Pressable style={commonStyles.formButton} onPress={goToNotifications}>
-                    <ThemedText style={commonStyles.formButtonText}>Set notification preferences</ThemedText>
+                </ThemedText>
+                <Pressable 
+                    style={[commonStyles.button, commonStyles.primaryButton]} 
+                    onPress={goToNotifications}
+                >
+                    <ThemedText style={commonStyles.buttonText}>
+                        Set notification preferences
+                    </ThemedText>
                 </Pressable>
-            </View>
+            </ThemedView>
 
             <TouchableOpacity 
-                style={commonStyles.formButton} 
+                style={[commonStyles.button, commonStyles.primaryButton]} 
                 onPress={goToProfile}
             >
-                <ThemedText style={commonStyles.formButtonText}>
+                <ThemedText style={commonStyles.buttonText}>
                     View Profile
                 </ThemedText>
             </TouchableOpacity>

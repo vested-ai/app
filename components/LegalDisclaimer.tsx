@@ -1,29 +1,27 @@
-import { StyleSheet } from 'react-native';
-import { Link } from 'expo-router';
-import { ThemedText } from '@/components/ThemedText';
-import { Colors } from '@/constants/Colors';
-
-
-export function LegalDisclaimer() {
+import { TouchableOpacity } from 'react-native';
+import { ThemedText } from './ThemedText';
+import { commonStyles } from '@/styles/common';
+import { router } from 'expo-router';
+import { ThemedView } from './ThemedView';
+ 
+export const LegalDisclaimer = () => {
     return (
-        <ThemedText 
-            style={styles.legalText}
-            accessibilityRole="text"
-            accessibilityLabel="Legal disclaimer for account creation"
-        >
-            By signing up, you agree with the <Link style={styles.linkText} href="/(aux)/tos">Terms of Service</Link> and <Link style={styles.linkText} href="/(aux)/privacy">Privacy Policy</Link>
-        </ThemedText>
+        <ThemedView style={commonStyles.section}>
+            <ThemedText style={commonStyles.cardContent}>
+                By continuing, you agree to our{' '}
+                <TouchableOpacity onPress={() => {
+                    router.push('/terms');
+                }}>
+                    <ThemedText style={commonStyles.linkText}>Terms of Service</ThemedText>
+                </TouchableOpacity>
+                {' '}and{' '}
+                <TouchableOpacity onPress={() => {
+                    router.push('/privacy');
+                }}>
+                    <ThemedText style={commonStyles.linkText}>Privacy Policy</ThemedText>
+                </TouchableOpacity>
+                {'.'}
+            </ThemedText>
+        </ThemedView>
     );
-}
-
-const styles = StyleSheet.create({
-    legalText: {
-        fontSize: 14,
-        color: Colors.brandGray,
-        marginTop: 20,
-    },
-    linkText: {
-        color: Colors.brandPink,
-        textDecorationLine: 'underline',
-    }
-}); 
+}; 

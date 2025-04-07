@@ -1,8 +1,18 @@
+// React core
+import { useRef, useState } from "react";
+
+// React Native components
+import { TouchableOpacity, TextInput, ScrollView } from "react-native";
+
+// Third-party libraries
 import { router } from "expo-router";
-import React, { useRef, useState } from "react";
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native";
+
+// Local components
+import { AppBar } from "@/components/AppBar";
 import { ThemedText } from "@/components/ThemedText";
-import { Colors } from "@/constants/Colors";
+
+// Local styles
+import { commonStyles } from "@/styles/common";
 
 export default function ForgotPassword() {
     const [email, setEmail] = useState("");
@@ -15,34 +25,40 @@ export default function ForgotPassword() {
         setError(null);
 
         if (!email) {
-            setError("Email is required");
+            setError('Email is required');
             return;
         }
 
+        // Basic email validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-            setError("Please enter a valid email address");
+            setError('Please enter a valid email address');
             return;
         }
 
         try {
             setIsLoading(true);
-            router.replace('/(login)/resetpassword');
+            setTimeout(() => {
+                setIsLoading(false);
+                router.replace('/(login)/resetpassword');
+            }, 1000);
         } catch (err) {
-            setError("Failed to reset password");
-        } finally {
+            setError('Failed to reset password');
             setIsLoading(false);
         }
     }
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Enter Email to Reset Password</Text>
+        <ScrollView style={commonStyles.container}>
+            <AppBar />
 
-            { error && (<Text style={styles.errorText}>{error}</Text>) }
+            <ThemedText style={commonStyles.title}>Forgot Password?</ThemedText>
+            <ThemedText style={commonStyles.formDescription}>Enter your email to reset your password</ThemedText>
+
+            { error && (<ThemedText style={commonStyles.errorText}>{error}</ThemedText>) }
 
             <TextInput
-                style={styles.input}
+                style={[commonStyles.formInput, commonStyles.shadow]}
                 placeholder="Email"
                 value={email}
                 onChangeText={setEmail}
@@ -60,64 +76,13 @@ export default function ForgotPassword() {
             />
 
             <TouchableOpacity
-                style={[styles.button, styles.signupButton]}
+                style={[commonStyles.button, commonStyles.primaryButton]}
                 onPress={handleForgotPassword}
             >
-                <ThemedText style={styles.buttonText}>
-                    Continue
+                <ThemedText style={commonStyles.buttonText}>
+                    { isLoading ? 'Sending...' : 'Continue' }
                 </ThemedText>   
             </TouchableOpacity>
-        </View>
+        </ScrollView>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 20,
-        marginTop: 15,
-    },
-    input: {
-        width: '100%',
-        height: 40,
-        borderWidth: 1,
-        borderColor: Colors.brandGrayLighter,
-        borderRadius: 5,
-        paddingHorizontal: 10,
-        marginTop: 20,
-        fontSize: 16,
-    },
-    button: {
-        width: '100%',
-        padding: 15,
-        borderRadius: 8,
-        marginTop: 15,
-        marginBottom: 15,
-        alignItems: 'center',
-    },
-    buttonText: {
-        color: Colors.brandWhite,
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
-    signupButton: {
-        backgroundColor: Colors.brandPink,
-    },
-    errorText: {
-        color: Colors.brandPink,
-        marginTop: 10,
-        textAlign: 'center',
-    },
-    linkText: {
-        marginTop: 10,
-        textAlign: 'center',
-        color: Colors.brandPink,
-    },
-    title: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginBottom: 10,
-    },
-});

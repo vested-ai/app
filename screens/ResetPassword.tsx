@@ -1,8 +1,19 @@
-import { Text, StyleSheet, TouchableOpacity, View, TextInput } from "react-native";
+// React core
 import { useRef, useState } from "react";
-import { ThemedText } from "@/components/ThemedText";
+
+// React Native components
+import { TouchableOpacity, TextInput, ScrollView } from "react-native";
+
+// Third-party libraries
 import { router } from "expo-router";
-import { Colors } from "@/constants/Colors";
+
+// Local components
+import { AppBar } from "@/components/AppBar";
+import { ThemedText } from "@/components/ThemedText";
+import { ThemedView } from "@/components/ThemedView";
+
+// Local styles
+import { commonStyles } from "@/styles/common";
 
 export default function ResetPassword() {
     const [code, setCode] = useState("");
@@ -15,6 +26,22 @@ export default function ResetPassword() {
     const newPasswordRef = useRef<TextInput>(null);
     const confirmPasswordRef = useRef<TextInput>(null);
 
+
+    const handleCodeChange = (text: string) => {
+        setCode(text);
+        setError(null);
+    };
+
+    const handleNewPasswordChange = (text: string) => {
+        setNewPassword(text);
+        setError(null);
+    };
+
+    const handleConfirmPasswordChange = (text: string) => {
+        setConfirmPassword(text);
+        setError(null);
+    };
+
     const handleResetPassword = () => {
         setError(null);
 
@@ -23,8 +50,8 @@ export default function ResetPassword() {
             return;
         }
 
-        if (code.length !== 4) {
-            setError('Code must be 4 digits');
+        if (code.length !== 6) {
+            setError('Code must be 6 digits');
             return;
         }
 
@@ -40,125 +67,89 @@ export default function ResetPassword() {
 
         try {
             setIsLoading(true);
-            router.replace('/(login)/login');
+            // Simulate API call
+            setTimeout(() => {
+                setIsLoading(false);
+                // Navigate to login page
+                router.replace('/(login)/login');
+            }, 1000);
         } catch (err) {
             setError('Failed to reset password');
-        } finally {
             setIsLoading(false);
         }
     }
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Reset your password</Text>
+        <ScrollView style={commonStyles.container}>
+            <AppBar />
 
-            {error && (<Text style={styles.errorText}>{error}</Text>)}
+            <ThemedView style={commonStyles.section}>
+                <ThemedText style={commonStyles.title}>Reset Password</ThemedText>
 
-            <TextInput
-                style={styles.input}
-                placeholder="Enter 4-digit code"
-                value={code}
-                onChangeText={setCode}
-                autoComplete="one-time-code"
-                autoCorrect={false}
-                inputMode="numeric"
-                maxLength={4}
-                keyboardType="number-pad"
-                accessibilityLabel="Reset Code"
-                accessibilityHint="Enter the 4-digit code sent to your email"
-                returnKeyType="next"
-                onSubmitEditing={() => {
-                    newPasswordRef.current?.focus();
-                }}
-                ref={codeRef}
-            />
+                { error && (
+                    <ThemedText style={commonStyles.errorText}>
+                        {error}
+                    </ThemedText>
+                )}
 
-            <TextInput
-                style={styles.input}
-                placeholder="New Password"
-                value={newPassword}
-                onChangeText={setNewPassword}
-                autoComplete="new-password"
-                autoCorrect={false}
-                secureTextEntry={true}
-                accessibilityLabel="New Password"
-                accessibilityHint="Enter your new password"
-                returnKeyType="next"
-                onSubmitEditing={() => {
-                    confirmPasswordRef.current?.focus();
-                }}
-                ref={newPasswordRef}
-            />
+                <TextInput  
+                    style={[commonStyles.formInput, commonStyles.shadow]}
+                    placeholder="Code"
+                    keyboardType="number-pad"
+                    maxLength={6}
+                    autoCorrect={false}
+                    inputMode="numeric"
+                    returnKeyType="next"
+                    value={code}
+                    onChangeText={handleCodeChange}
+                    onSubmitEditing={() => {
+                        newPasswordRef.current?.focus();
+                    }}
+                    ref={codeRef}
+                />
+                <TextInput
+                    style={[commonStyles.formInput, commonStyles.shadow]}
+                    placeholder="New Password"
+                    value={newPassword}
+                    onChangeText={handleNewPasswordChange}
+                    autoComplete="new-password"
+                    autoCorrect={false}
+                    inputMode="text"
+                    secureTextEntry={true}
+                    accessibilityLabel="New Password"
+                    accessibilityHint="Enter your new password"
+                    returnKeyType="next"
+                    onSubmitEditing={() => {
+                        confirmPasswordRef.current?.focus();
+                    }}
+                    ref={newPasswordRef}
+                />
 
-            <TextInput
-                style={styles.input}
-                placeholder="Confirm Password"
-                value={confirmPassword}
-                onChangeText={setConfirmPassword}
-                autoComplete="new-password"
-                autoCorrect={false}
-                secureTextEntry={true}
-                accessibilityLabel="Confirm Password"
-                accessibilityHint="Confirm your new password"
-                returnKeyType="done"
-                onSubmitEditing={handleResetPassword}
-                ref={confirmPasswordRef}
-            />
+                <TextInput
+                    style={[commonStyles.formInput, commonStyles.shadow]}
+                    placeholder="Confirm New Password"
+                    value={confirmPassword}
+                    onChangeText={handleConfirmPasswordChange}
+                    autoComplete="new-password"
+                    autoCorrect={false}
+                    inputMode="text"
+                    secureTextEntry={true}
+                    accessibilityLabel="Confirm New Password"
+                    accessibilityHint="Confirm your new password"
+                    returnKeyType="done"
+                    onSubmitEditing={handleResetPassword}
+                    ref={confirmPasswordRef}
+                />
 
-            <TouchableOpacity
-                style={[styles.button, styles.resetButton]}
-                onPress={handleResetPassword}
-            >
-                <ThemedText style={styles.buttonText}>
-                    {isLoading ? 'Resetting...' : 'Reset Password'}
-                </ThemedText>
-            </TouchableOpacity>
-        </View>
+                <TouchableOpacity
+                    style={[commonStyles.button, commonStyles.primaryButton]}
+                    onPress={handleResetPassword}
+                >
+                    <ThemedText style={commonStyles.buttonText}>
+                        { isLoading ? 'Resetting...' : 'Reset Password' }
+                    </ThemedText>
+                </TouchableOpacity>
+            </ThemedView>
+        </ScrollView>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 20,
-        marginTop: 15,
-    },
-    input: {
-        width: '100%',
-        height: 40,
-        borderWidth: 1,
-        borderColor: Colors.brandGrayLighter,
-        borderRadius: 5,
-        paddingHorizontal: 10,
-        marginTop: 20,
-        fontSize: 16,
-    },
-    button: {
-        width: '100%',
-        padding: 15,
-        borderRadius: 8,
-        marginTop: 15,
-        marginBottom: 15,
-        alignItems: 'center',
-    },
-    buttonText: {
-        color: Colors.brandWhite,
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
-    resetButton: {
-        backgroundColor: Colors.brandPink,
-    },
-    errorText: {
-        color: Colors.brandPink,
-        marginTop: 10,
-        textAlign: 'center',
-    },
-    title: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginBottom: 10,
-    }
-});

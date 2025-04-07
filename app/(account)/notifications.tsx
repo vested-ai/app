@@ -1,7 +1,16 @@
-import { Text } from "react-native-paper";
+// Components
+import { ThemedText } from "@/components/ThemedText";
+import { ThemedView } from "@/components/ThemedView";
+import { AppBar } from "@/components/AppBar";
+
+// Styles
+import { commonStyles } from "@/styles/common";
 
 export default function NotificationsRoute() {
     return (
-        <Text>Notifications</Text>
+        <ThemedView style={commonStyles.container}>
+            <AppBar />
+            <ThemedText style={commonStyles.title}>Notifications</ThemedText>
+        </ThemedView>
     );
 }

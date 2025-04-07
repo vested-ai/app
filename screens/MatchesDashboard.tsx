@@ -1,101 +1,150 @@
-import { View, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
-import { useState } from "react";
+// React core
+import { useEffect, useState } from "react";
+
+// React Native components
+import { ScrollView, TouchableOpacity, Image } from "react-native";
+
+// Third-party libraries
 import { router } from "expo-router";
+import Icon from "react-native-vector-icons/FontAwesome6";
+
+// Local components
+import { AppBar } from "@/components/AppBar";
+import { Badge } from "@/components/Badge";
+import { ThemedImage } from "@/components/ThemedImage";
 import { ThemedText } from "@/components/ThemedText";
-import { commonStyles } from '@/styles/common';
+import { ThemedView } from "@/components/ThemedView";
+
+// Local styles and constants
+import { commonStyles } from "@/styles/common";
 import { Colors } from "@/constants/Colors";
 
-
-interface DaterProps {
-    id: string;
-    name: string;
-    matchRecommendations: Array<MatchRecommendation>;
-    matchExpirationHrs: number;
-}
-
-interface MatchRecommendation {
-    id: string;
-    name: string;
-    rankScore: number;
-}
+// Local data and utilities
+import { getDaterById, getProfileImage } from "@/data/mockData";
+import { MatchRecommendation } from "@/types/data";
 
 interface MatchesDashboardProps {
     daterId: string;
 }
 
 export default function MatchesDashboard({ daterId }: MatchesDashboardProps) {
-    if (!daterId || daterId.trim() === '') {
-        console.error("Invalid daterId provided to MatchesDashboard");
-    }
-    console.log("daterId: ", daterId);
+    const dater = getDaterById(daterId);
     
-    const [dater, setDater] = useState<DaterProps>({
-        id: daterId,   
-        name: "Lola Loren",
-        matchRecommendations: [
-            {
-                id: "1",
-                name: "Chad Thunderbolt",
-                rankScore: 92
-            },
-            {
-                id: "2",
-                name: "Brock Steel",
-                rankScore: 88
-            }
-        ],
-        matchExpirationHrs: 8,
-    });
+    if (!dater) {
+        return (
+            <ThemedView style={commonStyles.container}>
+                <ThemedText style={commonStyles.errorText}>
+                    Dater not found
+                </ThemedText>
+            </ThemedView>
+        );
+    }
+
+    const [hasMatches, setHasMatches] = useState(false);
+    const [showMatches, setShowMatches] = useState(false);
+
+    useEffect(() => {
+        if (dater.matchRecommendations.length > 0 && dater.matchExpirationHrs > 0) {
+            setHasMatches(true);
+            setShowMatches(true);
+        }
+    }, [dater.matchRecommendations, dater.matchExpirationHrs]);
 
     return (
-        <ScrollView style={commonStyles.container} contentContainerStyle={commonStyles.contentContainer}>
-            <View style={commonStyles.appBar}>
-                <ThemedText style={commonStyles.appTitle}>Vested</ThemedText>
-            </View>
+        <ScrollView style={[commonStyles.container, commonStyles.contentContainer]}>
+            <AppBar />
 
-            <ThemedText style={commonStyles.dashboardTitle}>
-                {dater.name}'s Match Recommendations
-            </ThemedText>
+            {/* User Info Container */}
+            <ThemedView style={commonStyles.userHeader}>
+                <Image 
+                    source={getProfileImage(dater.image)} 
+                    style={commonStyles.userImageLarge}
+                />
+                <ThemedView >
+                    <ThemedText style={[commonStyles.title, { color: Colors.brandPink }]}>{dater.name}</ThemedText>
+                </ThemedView>
+            </ThemedView>
 
-            <ThemedText style={commonStyles.expirationText}>
-                Expires in {dater.matchExpirationHrs} hours
-            </ThemedText>
-
-            {dater.matchRecommendations.map((match, index) => (
-                <View key={index} style={commonStyles.card}>
-                    <ThemedText style={styles.matchName}>{match.name}</ThemedText>
-                    <ThemedText style={styles.matchScore}>
-                        Match Score: {match.rankScore}%
+            {/* Match Recommendations Section */}
+            {!hasMatches ? ( 
+                <ThemedView style={[commonStyles.section, {alignItems: 'center'}]}>
+                    <ThemedText style={commonStyles.sectionTitle}>
+                        No matches
                     </ThemedText>
-                    <TouchableOpacity 
-                        style={commonStyles.linkButton}
-                        onPress={() => router.push({
-                            pathname: "/(profile)/matchprofile",
-                            params: { matchId: match.id }
-                        })}
-                    >
-                        <ThemedText style={commonStyles.linkText}>View Profile</ThemedText>
+                    <ThemedText style={commonStyles.sectionSubtitle}>
+                        Check back soon!
+                    </ThemedText>
+                </ThemedView>
+            ) : (
+                <ThemedView style={commonStyles.section}>
+                    <TouchableOpacity onPress={() => setShowMatches(!showMatches)}>
+                        <ThemedText style={commonStyles.sectionTitle}>
+                        <Icon 
+                            name={showMatches ? "chevron-down" : "chevron-right"} 
+                            size={18} 
+                            color={Colors.brandGrayDarker} 
+                            style={commonStyles.leadingIcon}
+                        />
+                            Match Recommendations
+                        </ThemedText>
+                        <ThemedText style={commonStyles.expirationText}>
+                            Hurry! Matches expire in {dater.matchExpirationHrs}h.
+                        </ThemedText>
                     </TouchableOpacity>
-                </View>
-            ))}
+                    {showMatches && (
+                        <ThemedView style={commonStyles.section}>
+                            {dater.matchRecommendations.map((matchRecommendation: MatchRecommendation) => {
+                                const match = getDaterById(matchRecommendation.daterId);
+                                if (!match){
+                                    return (
+                                        <ThemedText style={commonStyles.errorText}>
+                                            Match not found
+                                        </ThemedText>
+                                    );
+                                }
+    
+                                return (
+                                    <TouchableOpacity 
+                                        key={matchRecommendation.daterId}
+                                        style={commonStyles.card}
+                                        onPress={() => router.push({
+                                            pathname: "/(profile)/matchprofile",
+                                            params: { matchId: matchRecommendation.daterId }
+                                        })}
+                                    >
+                                        <ThemedView style={commonStyles.daterCard}>
+                                            <ThemedImage 
+                                                source={getProfileImage(match.image)} 
+                                                style={commonStyles.userImageMedium}
+                                            />
+                                            <ThemedView style={{ flex: 1 }}>
+                                                <ThemedText style={commonStyles.cardTitle}>
+                                                    {match.name}
+                                                </ThemedText>
+                                            </ThemedView>
+                                            <Badge 
+                                                count={matchRecommendation.rankScore} 
+                                                type="percentage" 
+                                                description='Match Score'
+                                            />
+                                        </ThemedView>
+                                        <ThemedText 
+                                            style={[commonStyles.cardContent, { 
+                                                marginTop: 8,
+                                                paddingHorizontal: 16,
+                                                paddingBottom: 16
+                                            }]}
+                                            numberOfLines={4}
+                                        >
+                                            {match.bio}
+                                        </ThemedText>
+                                    </TouchableOpacity>
+                                );
+                            })}
+                        </ThemedView>
+                    )}
+                </ThemedView>
+            )}
         </ScrollView>
     );
 }
-
-const styles = StyleSheet.create({
-    expirationText: {
-        fontSize: 16,
-        color: Colors.brandGray,
-        marginBottom: 24,
-    },
-    matchName: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        marginBottom: 8,
-    },
-    matchScore: {
-        fontSize: 16,
-        color: Colors.brandGray,
-        marginBottom: 16,
-    },
-});

@@ -1,9 +1,21 @@
-import { Text, StyleSheet, TouchableOpacity, View, TextInput } from "react-native";
+// React core
 import { useRef, useState } from "react";
+
+// React Native components
+import { TouchableOpacity, TextInput, ScrollView } from "react-native";
+
+// Third-party libraries
+import { router } from "expo-router";
+
+// Local components
 import { LegalDisclaimer } from "@/components/LegalDisclaimer";
 import { ThemedText } from "@/components/ThemedText";
-import { router } from "expo-router";
-import { Colors } from "@/constants/Colors";
+import { AppBar } from "@/components/AppBar";
+import { ThemedView } from "@/components/ThemedView";
+
+// Local styles
+import { commonStyles } from "@/styles/common";
+
 export default function CreateAccount() {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -52,137 +64,96 @@ export default function CreateAccount() {
     }
 
     return (
-        <View style={styles.container}>
-            <Text>Create an Account</Text>
-        
-            { error && (<Text style={styles.errorText}>{error}</Text>) }
+        <ScrollView style={[commonStyles.container, commonStyles.contentContainer]}>
+            <AppBar />
 
-            <TextInput
-                style={styles.input}
-                placeholder="First Name"
-                value={firstName}
-                onChangeText={setFirstName}
-                autoComplete="given-name"
-                autoCorrect={false}
-                autoFocus={true}
-                inputMode="text"
-                accessibilityLabel="First Name"
-                accessibilityHint="Enter your first name"
-                returnKeyType="next"
-                onSubmitEditing={() => {
-                    // Focus the next input (Last Name)
-                    lastNameRef.current?.focus();
-                }}
-                ref={firstNameRef}
-            />
-
-            <TextInput
-                style={styles.input}
-                placeholder="Last Name"
-                value={lastName}
-                onChangeText={setLastName}
-                autoComplete="family-name"
-                autoCorrect={false}
-                inputMode="text"
-                accessibilityLabel="Last Name"
-                accessibilityHint="Enter your last name"
-                returnKeyType="next"
-                onSubmitEditing={() => {
-                    // Focus the next input (Last Name)
-                    emailRef.current?.focus();
-                }}
-                ref={lastNameRef}
-
-
-
-            />
-
-            <TextInput
-                style={styles.input}
-                placeholder="Email"
-                value={email}
-                onChangeText={setEmail}
-                autoComplete="email"
-                autoCorrect={false}
-                inputMode="email"
-                keyboardType="email-address"
-                accessibilityLabel="Email"
-                accessibilityHint="Enter your email"
-                returnKeyType="next"
-                onSubmitEditing={() => {
-                    // Focus the next input (Last Name)
-                    passwordRef.current?.focus();
-                }}
-                ref={emailRef}
-
-            />
-
-            <TextInput
-                style={styles.input}
-                placeholder="Password"
-                value={password}
-                onChangeText={setPassword}
-                autoComplete="new-password"
-                autoCorrect={false}    
-                inputMode="text"
-                secureTextEntry={true}
-                accessibilityLabel="Password"
-                accessibilityHint="Enter your password"
-                returnKeyType="done"
-                onSubmitEditing={() => handleAccountCreation()}
-                ref={passwordRef}
-            />
-
-            <TouchableOpacity 
-                style={[styles.button, styles.signupButton]}
-                onPress={handleAccountCreation}
-            >
-                <ThemedText style={styles.buttonText}>
-                    { isLoading ? 'Creating Account...' : 'Sign Up' }
+            <ThemedView style={commonStyles.section}>
+                <ThemedText style={commonStyles.title}>
+                    Create an Account
                 </ThemedText>
-            </TouchableOpacity>
+            
+                { error && (<ThemedText style={commonStyles.errorText}>{error}</ThemedText>) }
+
+                <TextInput
+                    style={[commonStyles.formInput, commonStyles.shadow]}
+                    placeholder="First Name"
+                    value={firstName}
+                    onChangeText={setFirstName}
+                    autoComplete="given-name"
+                    autoCorrect={false}
+                    autoFocus={true}
+                    inputMode="text"
+                    accessibilityLabel="First Name"
+                    accessibilityHint="Enter your first name"
+                    returnKeyType="next"
+                    onSubmitEditing={() => {
+                        lastNameRef.current?.focus();
+                    }}
+                    ref={firstNameRef}
+                />
+
+                <TextInput
+                    style={[commonStyles.formInput, commonStyles.shadow]}
+                    placeholder="Last Name"
+                    value={lastName}
+                    onChangeText={setLastName}
+                    autoComplete="family-name"
+                    autoCorrect={false}
+                    inputMode="text"
+                    accessibilityLabel="Last Name"
+                    accessibilityHint="Enter your last name"
+                    returnKeyType="next"
+                    onSubmitEditing={() => {
+                        emailRef.current?.focus();
+                    }}
+                    ref={lastNameRef}
+                />
+
+                <TextInput
+                    style={[commonStyles.formInput, commonStyles.shadow]}
+                    placeholder="Email"
+                    value={email}
+                    onChangeText={setEmail}
+                    autoComplete="email"
+                    autoCorrect={false}
+                    inputMode="email"
+                    keyboardType="email-address"
+                    accessibilityLabel="Email"
+                    accessibilityHint="Enter your email"
+                    returnKeyType="next"
+                    onSubmitEditing={() => {
+                        passwordRef.current?.focus();
+                    }}
+                    ref={emailRef}
+                />
+
+                <TextInput
+                    style={[commonStyles.formInput, commonStyles.shadow]}
+                    placeholder="Password"
+                    value={password}
+                    onChangeText={setPassword}
+                    autoComplete="new-password"
+                    autoCorrect={false}    
+                    inputMode="text"
+                    secureTextEntry={true}
+                    accessibilityLabel="Password"
+                    accessibilityHint="Enter your password"
+                    returnKeyType="done"
+                    onSubmitEditing={() => handleAccountCreation()}
+                    ref={passwordRef}
+                />
+
+                <TouchableOpacity 
+                    style={[commonStyles.button, commonStyles.primaryButton]}
+                    onPress={handleAccountCreation}
+                >
+                    <ThemedText style={commonStyles.buttonText}>
+                        { isLoading ? 'Creating Account...' : 'Sign Up' }
+                    </ThemedText>
+                </TouchableOpacity>
+            </ThemedView>
 
             <LegalDisclaimer />
-
-        </View>    
+        </ScrollView>    
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 20,
-        marginTop: 15,
-    },
-    input: {
-        width: '100%',
-        height: 40,
-        borderWidth: 1,
-        borderColor: Colors.brandGrayLighter,
-        borderRadius: 5,
-        paddingHorizontal: 10,
-        marginTop: 20,
-    },
-    button: {
-        width: '100%',
-        padding: 15,
-        borderRadius: 8,
-        marginBottom: 15,
-        alignItems: 'center',
-    },
-    buttonText: {
-        color: Colors.brandWhite,
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
-    signupButton: {
-        backgroundColor: Colors.brandPink,
-    },
-    errorText: {
-        color: Colors.brandPink,
-        marginTop: 10,
-        textAlign: 'center',
-    },
-})
