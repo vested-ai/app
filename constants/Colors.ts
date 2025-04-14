@@ -4,33 +4,47 @@
  */
 
 export const Colors = {
-    brandPink: '#a64d79',
+    // Brand Colors
+    brandPink: '#A64D79',
     brandWhite: '#FFFFFF',
     brandGrayLightest: '#F5F5F5',
     brandGrayLighter: '#E5E5E5',
-    brandGrayLight: '#9BA1A6',
-    brandGray: '#666666',
-    brandGrayDark: '#333333',
-    brandGrayDarker: '#111111',
+    brandGrayLight: '#D4D4D4',
+    brandGray: '#A3A3A3',
+    brandGrayDark: '#737373',
+    brandGrayDarker: '#404040',
     brandBlack: '#000000',
+
+    // Status Colors
+    success: '#22C55E', // Green
+    warning: '#F59E0B', // Yellow
+    error: '#EF4444',   // Red
+
+    // Social Colors
+    facebook: '#1877F2',
+    google: '#DB4437',
+
+    // Theme Colors
     light: {
         text: 'brandBlack',
         background: 'brandWhite',
         primary: 'brandPink',
         secondary: 'brandGray',
-        tint: 'brandGrayLight',
+        tint: 'brandPink',
         icon: 'brandGrayLight',
-        tabIconDefault: 'brandGrayLight',
-        tabIconSelected: 'brandColorLight',
+        tabIconDefault: 'brandGrayDark',
+        tabIconSelected: 'brandPink',
+        border: 'brandGrayLighter',
     },
     dark: {
         text: 'brandWhite',
         background: 'brandBlack',
         primary: 'brandPink',
         secondary: 'brandGray',
-        tint: 'brandGrayLight',
+        tint: 'brandPink',
         icon: 'brandGrayLight',
-        tabIconDefault: 'brandGrayLight',
-        tabIconSelected: 'brandColorDark',
+        tabIconDefault: 'brandGrayDark',
+        tabIconSelected: 'brandPink',
+        border: 'brandGrayDarker',
     },
 };

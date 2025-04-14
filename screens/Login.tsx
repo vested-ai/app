@@ -1,84 +1,115 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import { ThemedText } from '@/components/ThemedText';
-import { Link, router } from 'expo-router';
+// React core
+import React from 'react';
+
+// React Native components
+import { TouchableOpacity, StyleSheet, View, ScrollView } from 'react-native';
+
+// Third-party libraries
+import { router } from 'expo-router';
+import Icon from 'react-native-vector-icons/FontAwesome6';
+
+// Local components
+import { AppBar } from '@/components/AppBar';
 import { LegalDisclaimer } from '@/components/LegalDisclaimer';
+import { ThemedText } from '@/components/ThemedText';
+import { ThemedView } from '@/components/ThemedView';
+
+// Local styles and constants
+import { commonStyles } from '@/styles/common';
 import { Colors } from '@/constants/Colors';
 
-const APP_LOGO = require('@/assets/images/react-logo.png');
+// Type assertion for Icon component
+const IconComponent = Icon as any;
 
 export const LoginScreen = () => {
     const handleFacebookLogin = () => {
-    // Implement Facebook login logic
+        console.log('Facebook login');
     };
 
     const handleGoogleLogin = () => {
-    // Implement Google login logic
+        console.log('Google login');
     };
 
     const handleEmailSignUp = () => {
-    // Navigate to email sign up screen
         router.push('/(account)/create');
     };
 
     return (
-        <View style={styles.container}>
-            <View style={styles.logoContainer}>
-                <Image 
-                    source={APP_LOGO} 
-                    style={styles.logo}
-                    resizeMode="contain"
-                />
-            </View>
-
-            <View style={styles.buttonContainer}>
+        <ScrollView 
+            style={commonStyles.container} 
+            contentContainerStyle={[commonStyles.contentContainer, { alignItems: 'center' }]}
+        >
+            <AppBar />
+            
+            <ThemedView style={[commonStyles.section, { alignItems: 'center' }]}>
                 <TouchableOpacity 
-                    style={[styles.button, styles.facebookButton]}
+                    style={[styles.button, commonStyles.shadow]}
                     onPress={handleFacebookLogin}
                 >
-                    <ThemedText style={styles.buttonText}>Continue with Facebook</ThemedText>
+                    <View style={styles.buttonContent}>
+                        <IconComponent 
+                            name='square-facebook' 
+                            size={24} 
+                            color={Colors.facebook} 
+                            style={commonStyles.leadingIcon}
+                        />
+                        <ThemedText style={[commonStyles.buttonText, { color: Colors.facebook }]}>
+                            Continue with Facebook
+                        </ThemedText>
+                    </View>
                 </TouchableOpacity>
 
                 <TouchableOpacity 
-                    style={[styles.button, styles.googleButton]}
+                    style={[styles.button, commonStyles.shadow]}
                     onPress={handleGoogleLogin}
                 >
-                    <ThemedText style={styles.buttonText}>Continue with Google</ThemedText>
+                    <View style={styles.buttonContent}>
+                        <IconComponent 
+                            name='google' 
+                            size={24} 
+                            color={Colors.google} 
+                            style={commonStyles.leadingIcon}
+                        />
+                        <ThemedText style={[commonStyles.buttonText, { color: Colors.google }]}>
+                            Continue with Google
+                        </ThemedText>
+                    </View>
                 </TouchableOpacity>
 
                 <TouchableOpacity 
-                    style={[styles.button, styles.emailButton]}
+                    style={[styles.button, commonStyles.shadow]}
                     onPress={handleEmailSignUp}
                 >
-                    <ThemedText style={styles.buttonText}>Sign up with Email</ThemedText>
+                    <View style={styles.buttonContent}>
+                        <IconComponent 
+                            name='envelope' 
+                            size={24} 
+                            color={Colors.brandPink} 
+                            style={commonStyles.leadingIcon}
+                        />
+                        <ThemedText style={[commonStyles.buttonText, { color: Colors.brandPink }]}>
+                            Sign up with Email
+                        </ThemedText>
+                    </View>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.signInLink}>
-                    <ThemedText style={styles.signInText}>
-                        <Link style={styles.linkText} href="/(login)/login">Already have an account?</Link>
+                <TouchableOpacity 
+                    style={commonStyles.linkContainer} 
+                    onPress={() => router.push('/(login)/login')}
+                    testID="login-link"
+                >
+                    <ThemedText style={commonStyles.linkText}>
+                        Already have an account?
                     </ThemedText>
                 </TouchableOpacity>
-
-                <LegalDisclaimer />
-            </View>
-        </View>
+            </ThemedView>
+            
+            <LegalDisclaimer />
+        </ScrollView>
     );
 };
 
-export const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 20,
-    },
-    logoContainer: {
-        marginBottom: 50,
-    },
-    logo: {
-        width: 150,
-        height: 150,
-    },
+const styles = StyleSheet.create({
     buttonContainer: {
         width: '100%',
         maxWidth: 300,
@@ -88,38 +119,14 @@ export const styles = StyleSheet.create({
         padding: 15,
         borderRadius: 8,
         marginBottom: 15,
+        flexDirection: 'row',
         alignItems: 'center',
+        paddingLeft: 20,
+        borderWidth: 1,
+        borderColor: Colors.brandGray,
     },
-    facebookButton: {
-        backgroundColor: '#2b78e4',
-    },
-    googleButton: {
-        backgroundColor: '#2b78e4',
-    },
-    emailButton: {
-        backgroundColor: Colors.brandPink,
-    },
-    buttonText: {
-        color: Colors.brandWhite,
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
-    signInLink: {
-        marginTop: 20,
+    buttonContent: {
+        flexDirection: 'row',
         alignItems: 'center',
-    },
-    signInText: {
-        fontSize: 14,
-        color: Colors.brandGray,
-    },
-    legalText: {
-        fontSize: 14,
-        color: Colors.brandGray,
-        marginTop: 20,
-        alignItems: 'center',
-    },
-    linkText: {
-        color: Colors.brandPink,
-        textDecorationLine: 'underline',
     },
 }); 
