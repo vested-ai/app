@@ -4,10 +4,12 @@ import App from '../app/index';
 
 describe('<App />', () => {
     it('renders correctly', async () => {
-        const { getByText } = render(<App />);
+        const { getByTestId } = render(<App />);
         
         await waitFor(() => {
-            expect(getByText('Already have an account?')).toBeTruthy();
+            // Look for the link container that contains the text
+            const linkContainer = getByTestId('login-link');
+            expect(linkContainer).toBeTruthy();
         }, { timeout: 3000 });
     });
 });

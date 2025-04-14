@@ -1,109 +1,134 @@
 // Mock react-native-vector-icons
 jest.mock('react-native-vector-icons/FontAwesome6', () => 'Icon');
 
-// Mock expo-font
-jest.mock('expo-font', () => {
-  const mockModule = {
-    loadAsync: jest.fn(() => Promise.resolve()),
-    isLoaded: jest.fn(() => true),
-    useFonts: jest.fn(() => [true, null]),
-  };
-  
-  // Add loadedNativeFonts as a property with a getter
-  Object.defineProperty(mockModule, 'loadedNativeFonts', {
-    get: () => [],
-  });
-  
-  return mockModule;
-});
-
-// Mock expo-asset
-jest.mock('expo-asset', () => ({
-  Asset: {
-    loadAsync: jest.fn(() => Promise.resolve()),
+// Mock themed components
+jest.mock('@/components/ThemedText', () => ({
+  __esModule: true,
+  ThemedText: function ThemedText({ children }) {
+    return children;
   },
 }));
 
-// Mock expo-splash-screen
-jest.mock('expo-splash-screen', () => ({
-  preventAutoHideAsync: jest.fn(() => Promise.resolve()),
-  hideAsync: jest.fn(() => Promise.resolve()),
+jest.mock('@/components/ThemedView', () => ({
+  __esModule: true,
+  ThemedView: function ThemedView({ children }) {
+    return children;
+  },
 }));
 
-// Mock expo-router
-jest.mock('expo-router', () => ({
-  useRouter: () => ({
-    push: jest.fn(),
-    replace: jest.fn(),
+jest.mock('@/components/AppBar', () => ({
+  __esModule: true,
+  AppBar: function AppBar() {
+    return null;
+  },
+}));
+
+jest.mock('@/components/LegalDisclaimer', () => ({
+  __esModule: true,
+  LegalDisclaimer: function LegalDisclaimer() {
+    return null;
+  },
+}));
+
+// Mock TurboModuleRegistry for SettingsManager
+jest.mock('react-native/Libraries/TurboModule/TurboModuleRegistry', () => ({
+  get: () => ({
+    AppleLocale: 'en_US',
+    AppleLanguages: ['en'],
   }),
-  router: {
-    push: jest.fn(),
-    replace: jest.fn(),
+  getEnforcing: () => ({
+    AppleLocale: 'en_US',
+    AppleLanguages: ['en'],
+  }),
+}));
+
+// Mock NativePlatformConstantsIOS
+jest.mock('react-native/Libraries/Utilities/NativePlatformConstantsIOS', () => ({
+  __esModule: true,
+  default: {
+    getConstants: () => ({
+      isTesting: true,
+      reactNativeVersion: {
+        major: 0,
+        minor: 0,
+        patch: 0,
+      },
+    }),
   },
 }));
 
-// Mock react-native
+// Mock NativeDeviceInfo
+jest.mock('react-native/src/private/specs/modules/NativeDeviceInfo', () => ({
+  __esModule: true,
+  default: {
+    getConstants: () => ({
+      Dimensions: {
+        window: {
+          width: 375,
+          height: 812,
+          scale: 3,
+          fontScale: 1,
+        },
+        screen: {
+          width: 375,
+          height: 812,
+          scale: 3,
+          fontScale: 1,
+        },
+      },
+    }),
+  },
+}));
+
+// Mock NativeModule class
+class MockNativeModule {
+  getConstants() {
+    return {
+      isTesting: true,
+      reactNativeVersion: {
+        major: 0,
+        minor: 0,
+        patch: 0,
+      },
+    };
+  }
+}
+
+// Mock react-native with NativeModules
 jest.mock('react-native', () => {
   const RN = jest.requireActual('react-native');
   
-  // Mock the TurboModuleRegistry
-  const mockTurboModuleRegistry = {
-    getEnforcing: jest.fn((name) => {
-      if (name === 'SettingsManager') {
-        return {
-          settings: {
-            AppleLocale: 'en_US',
-            AppleLanguages: ['en'],
+  // Add NativeModules with getConstants
+  RN.NativeModules = {
+    SettingsManager: {
+      AppleLocale: 'en_US',
+      AppleLanguages: ['en'],
+    },
+    PlatformConstants: new MockNativeModule(),
+    DeviceInfo: {
+      getConstants: () => ({
+        Dimensions: {
+          window: {
+            width: 375,
+            height: 812,
+            scale: 3,
+            fontScale: 1,
           },
-        };
-      }
-      return {};
-    }),
+          screen: {
+            width: 375,
+            height: 812,
+            scale: 3,
+            fontScale: 1,
+          },
+        },
+      }),
+    },
   };
   
-  return {
-    ...RN,
-    Platform: {
-      ...RN.Platform,
-      OS: 'ios',
-      select: jest.fn(obj => obj.ios),
-    },
-    NativeModules: {
-      ...RN.NativeModules,
-      SettingsManager: {
-        settings: {
-          AppleLocale: 'en_US',
-          AppleLanguages: ['en'],
-        },
-      },
-    },
-    TurboModuleRegistry: mockTurboModuleRegistry,
-  };
-});
-
-// Mock themed components
-jest.mock('@/components/ThemedText', () => {
-  return function ThemedText({ children }) {
-    return children;
-  };
-});
-
-jest.mock('@/components/ThemedView', () => {
-  return function ThemedView({ children }) {
-    return children;
-  };
-});
-
-jest.mock('@/components/AppBar', () => {
-  return function AppBar() {
-    return null;
-  };
-});
-
-jest.mock('@/components/LegalDisclaimer', () => {
-  return function LegalDisclaimer() {
-    return null;
-  };
+  // Add NativeModule class
+  RN.NativeModule = MockNativeModule;
+  
+  return RN;
 });
 
 // Global mock for loadedNativeFonts

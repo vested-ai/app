@@ -18,6 +18,9 @@ import { ThemedView } from '@/components/ThemedView';
 import { commonStyles } from '@/styles/common';
 import { Colors } from '@/constants/Colors';
 
+// Type assertion for Icon component
+const IconComponent = Icon as any;
+
 export const LoginScreen = () => {
     const handleFacebookLogin = () => {
         console.log('Facebook login');
@@ -44,7 +47,7 @@ export const LoginScreen = () => {
                     onPress={handleFacebookLogin}
                 >
                     <View style={styles.buttonContent}>
-                        <Icon 
+                        <IconComponent 
                             name='square-facebook' 
                             size={24} 
                             color={Colors.facebook} 
@@ -61,7 +64,7 @@ export const LoginScreen = () => {
                     onPress={handleGoogleLogin}
                 >
                     <View style={styles.buttonContent}>
-                        <Icon 
+                        <IconComponent 
                             name='google' 
                             size={24} 
                             color={Colors.google} 
@@ -78,7 +81,7 @@ export const LoginScreen = () => {
                     onPress={handleEmailSignUp}
                 >
                     <View style={styles.buttonContent}>
-                        <Icon 
+                        <IconComponent 
                             name='envelope' 
                             size={24} 
                             color={Colors.brandPink} 
@@ -93,6 +96,7 @@ export const LoginScreen = () => {
                 <TouchableOpacity 
                     style={commonStyles.linkContainer} 
                     onPress={() => router.push('/(login)/login')}
+                    testID="login-link"
                 >
                     <ThemedText style={commonStyles.linkText}>
                         Already have an account?
