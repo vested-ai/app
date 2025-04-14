@@ -45,6 +45,22 @@ jest.mock('expo-router', () => ({
 // Mock react-native
 jest.mock('react-native', () => {
   const RN = jest.requireActual('react-native');
+  
+  // Mock the TurboModuleRegistry
+  const mockTurboModuleRegistry = {
+    getEnforcing: jest.fn((name) => {
+      if (name === 'SettingsManager') {
+        return {
+          settings: {
+            AppleLocale: 'en_US',
+            AppleLanguages: ['en'],
+          },
+        };
+      }
+      return {};
+    }),
+  };
+  
   return {
     ...RN,
     Platform: {
@@ -52,6 +68,16 @@ jest.mock('react-native', () => {
       OS: 'ios',
       select: jest.fn(obj => obj.ios),
     },
+    NativeModules: {
+      ...RN.NativeModules,
+      SettingsManager: {
+        settings: {
+          AppleLocale: 'en_US',
+          AppleLanguages: ['en'],
+        },
+      },
+    },
+    TurboModuleRegistry: mockTurboModuleRegistry,
   };
 });
 
