@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 
 // React Native components
-import { StyleSheet, Pressable, TouchableOpacity, ScrollView, View } from "react-native";
+import { StyleSheet, Pressable, TouchableOpacity, ScrollView } from "react-native";
 
 // Third-party libraries
 import { router } from "expo-router";
@@ -40,7 +40,7 @@ export default function PersonaSetup() {
         if (!requiredFieldsComplete) {
             return;
         }
-        router.replace(persona === 'dater' ? '/(profile)/daterdashboard' : '/(profile)/frienddashboard');
+        router.replace(persona === 'dater' ? '/(account)/datersetup' : '/(profile)/frienddashboard');
     };
 
     return (

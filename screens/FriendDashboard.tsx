@@ -2,10 +2,10 @@
 import { useEffect, useState } from "react";
 
 // React Native components
-import { StyleSheet, ScrollView, TouchableOpacity } from "react-native";
+import { ScrollView, TouchableOpacity } from "react-native";
 
 // Third-party libraries
-import { router, useLocalSearchParams } from "expo-router";
+import { router } from "expo-router";
 import Icon from 'react-native-vector-icons/FontAwesome6';
 
 // Local components
@@ -76,6 +76,7 @@ export default function FriendDashboard({ friendId }: FriendDashboardProps) {
             setShowInvitations(true);
         } else {
             setHasInvitations(false);
+            setShowInvitations(false);
         }
 
         if (friend.vestedScore > 0) {
@@ -89,18 +90,21 @@ export default function FriendDashboard({ friendId }: FriendDashboardProps) {
     }, [friend.invitedBy, friend.daters, friend.vestedScore]);
 
     return (
-        <ScrollView style={commonStyles.container} contentContainerStyle={commonStyles.contentContainer}>
-            
+        <ScrollView style={[commonStyles.container, commonStyles.contentContainer]}>
             <AppBar />
 
-            {/* User Info Container */}
+            {/* User Header */}
             <ThemedView style={commonStyles.userHeader}>
                 <ThemedImage 
                     source={require('@/assets/images/profiles/1.png')} 
                     style={commonStyles.userImageLarge}
                 />
-                <ThemedText style={commonStyles.title}>{friend.name}'s Dashboard</ThemedText>
-                <ThemedText style={commonStyles.userModeText}>Friend Mode</ThemedText>
+                <ThemedText style={commonStyles.userHeaderTitle}>
+                    {friend.name}'s Dashboard
+                </ThemedText>
+                <ThemedText style={commonStyles.userModeText}>
+                    Friend Mode
+                </ThemedText>
                 
                 {isVested && (
                     <ThemedView>
@@ -149,7 +153,7 @@ export default function FriendDashboard({ friendId }: FriendDashboardProps) {
                 </TouchableOpacity>
 
                 {showInvitations && (
-                <ThemedView style={[commonStyles.section, commonStyles.row]}>
+                <ThemedView style={commonStyles.section}>
                     {friend.invitedBy.map((dater) => (
                         <ThemedCard key={dater.id} style={commonStyles.card}>
                             <ThemedView style={commonStyles.daterCard}>
@@ -163,7 +167,7 @@ export default function FriendDashboard({ friendId }: FriendDashboardProps) {
                                     </ThemedText>
                                 </ThemedView>
                             </ThemedView>
-                            <ThemedView style={styles.inviteActions}>
+                            <ThemedView style={[commonStyles.buttonRow]}>
                                 <Button
                                     text="Accept"
                                     style={[commonStyles.actionButton, commonStyles.primaryButton]}
@@ -192,7 +196,7 @@ export default function FriendDashboard({ friendId }: FriendDashboardProps) {
                                 color={Colors.brandGrayDarker} 
                                 style={commonStyles.leadingIcon}
                             />
-                            Review Friends Matches
+                            Review Friends' Matches
                         </ThemedText>
                         <ThemedText style={commonStyles.cardContent}>
                             Your friends need your help reviewing their profiles to help them find love!
@@ -215,11 +219,13 @@ export default function FriendDashboard({ friendId }: FriendDashboardProps) {
                                     <ThemedView style={commonStyles.daterCard}>
                                         <ThemedImage 
                                             source={getProfileImage(dater.image)} 
-                                            style={commonStyles.userImageMedium}
+                                            style={commonStyles.userImageSmall}
                                         />
+
                                         <ThemedText style={commonStyles.cardTitle}>
                                             {dater.name}
                                         </ThemedText>
+                                        
                                         <Badge 
                                             count={dater.matchRecommendations.length} 
                                             type='numeric'
@@ -227,19 +233,18 @@ export default function FriendDashboard({ friendId }: FriendDashboardProps) {
                                         />
                                     </ThemedView>
 
-                                    <ThemedView>
+                                    <ThemedView style={{ width: '100%', flex: 1 }}>
                                         <ThemedText 
-                                            style={commonStyles.cardContent}
+                                            style={[commonStyles.cardContent, commonStyles.cardBio]}
                                             numberOfLines={4}
+                                            ellipsizeMode="tail"
                                         >
                                             {dater.bio}
                                         </ThemedText>
-                                            {dater.matchRecommendations.length > 0 && dater.matchExpirationHrs > 0 && (
-                                                <ThemedView style={[styles.inviteActions, { paddingHorizontal: 0 }]}>
-                                                    <ThemedText style={commonStyles.expirationText}>
-                                                        Hurry! Expires in {dater.matchExpirationHrs}h.
-                                                    </ThemedText>
-                                                </ThemedView>
+                                        {dater.matchRecommendations.length > 0 && dater.matchExpirationHrs > 0 && (
+                                            <ThemedText style={commonStyles.expirationText}>
+                                                Hurry! Expires in {dater.matchExpirationHrs}h.
+                                            </ThemedText>
                                         )}
                                     </ThemedView>
                                 </TouchableOpacity>
@@ -251,14 +256,3 @@ export default function FriendDashboard({ friendId }: FriendDashboardProps) {
         </ScrollView>
     );
 }
-
-const styles = StyleSheet.create({
-    inviteActions: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginTop: 0,
-        paddingHorizontal: 16,
-        paddingBottom: 16,
-        gap: 16,
-    },
-}); 

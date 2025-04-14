@@ -17,6 +17,7 @@ export interface Dater {
     vestedScore: number;
     friends: Friend[];
     reviewingMatches: number;
+    seriousness?: number;
 }
 
 export interface Friend {

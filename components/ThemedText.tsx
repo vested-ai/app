@@ -19,8 +19,6 @@ export function ThemedText({
 
     const getStyle = () => {
         switch (type) {
-            case 'defaultSemiBold':
-                return commonStyles.textSemiBold;
             case 'title':
                 return commonStyles.title;
             case 'subtitle':

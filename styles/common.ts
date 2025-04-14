@@ -26,17 +26,6 @@ export const commonStyles = StyleSheet.create({
     },
 
     // ===== Text Styles =====
-    text: {
-        fontSize: 16,
-        lineHeight: 24,
-        color: Colors.brandGrayDark,
-    },
-    textSemiBold: {
-        fontSize: 16,
-        lineHeight: 24,
-        fontWeight: '600',
-        color: Colors.brandGrayDark,
-    },
     title: {
         fontSize: 32,
         fontWeight: 'bold',
@@ -49,18 +38,17 @@ export const commonStyles = StyleSheet.create({
         fontWeight: 'bold',
         color: Colors.brandGrayDark,
     },
-    linkText: {
-        lineHeight: 30,
+    text: {
         fontSize: 16,
-        color: Colors.brandPink,
-        textDecorationLine: 'underline',
+        lineHeight: 24,
+        color: Colors.brandGrayDark,
     },
 
     // ===== Card Styles =====
     card: {
         borderRadius: 8,
-        padding: 16,
-        marginBottom: 16,
+        padding: 12,
+        marginBottom: 12,
         backgroundColor: Colors.brandWhite,
         borderWidth: 1,
         borderColor: Colors.brandGrayLight,
@@ -78,7 +66,7 @@ export const commonStyles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: 16,
+        padding: 12,
     },
     defaultCard: {
         backgroundColor: Colors.brandWhite,
@@ -96,18 +84,24 @@ export const commonStyles = StyleSheet.create({
         borderWidth: 1,
         borderColor: Colors.brandGrayLightest,
     },
-
-    // ===== Dater Card Styles =====
     daterCard: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: 16,
-        gap: 16,
+        padding: 12,
+        gap: 12,
         backgroundColor: Colors.brandWhite,
     },
 
     // ===== Button Styles =====
+    buttonRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 0,
+        paddingHorizontal: 16,
+        paddingBottom: 16,
+        gap: 16,
+    },
     button: {
         width: '100%',
         height: 50,
@@ -115,7 +109,6 @@ export const commonStyles = StyleSheet.create({
         borderRadius: 8,
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 16,
     },
     actionButton: {
         flex: 1,
@@ -134,6 +127,20 @@ export const commonStyles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '600',
         color: Colors.brandWhite,
+    },
+
+    // ===== Link Styles =====
+    linkContainer: {
+        marginTop: 20,
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        gap: 15,
+    },
+    linkText: {
+        lineHeight: 30,
+        fontSize: 16,
+        color: Colors.brandPink,
+        textDecorationLine: 'underline',
     },
     
     // ===== Form Styles =====
@@ -166,26 +173,48 @@ export const commonStyles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         marginVertical: 10,
-        paddingHorizontal:10,
+        paddingHorizontal: 10,
+        width: '100%',
     },
     sliderText: {
         fontSize: 18,
         color: Colors.brandGrayDarker,
     },
+    sliderTextSmall: {
+        fontSize: 14,
+    },
     slider: {
         flex: 1,
         marginHorizontal: 10,
+        height: 24,
     },
 
     // ===== Component Base Styles =====
     checkboxContainer: {
         marginTop: 20,
         marginBottom: 20,
+        width: '100%',
+        paddingHorizontal: 0,
+        marginLeft: -16,
     },
     checkboxItem: {
-        marginBottom: 10,
-        paddingVertical: 4,
-        paddingHorizontal: 0,
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingVertical: 12,
+        paddingHorizontal: 16,
+        borderBottomWidth: 1,
+        borderBottomColor: Colors.brandGrayLight,
+    },
+    checkboxLabel: {
+        fontSize: 16,
+        color: Colors.brandGrayDarker,
+        flex: 1,
+    },
+    selectedItem: {
+        backgroundColor: Colors.brandPink,
+    },
+    selectedText: {
+        color: Colors.brandWhite,
     },
     switch: {
         width: 48,
@@ -197,15 +226,13 @@ export const commonStyles = StyleSheet.create({
     },
     badgeContainer: {
         flexDirection: 'column',
-        alignItems: 'center',
+        alignItems: 'flex-end',
         justifyContent: 'center',
-        gap: 4,
     },
     badge: {
         backgroundColor: Colors.brandPink,
         paddingHorizontal: 12,
         borderRadius: 24,
-        alignSelf: 'center',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
@@ -289,6 +316,14 @@ export const commonStyles = StyleSheet.create({
         padding: 20,
         alignItems: 'center',
     },
+    userHeaderTitle: {
+        fontSize: 32,
+        fontWeight: 'bold',
+        lineHeight: 32,
+        color: Colors.brandGrayDarker,
+        marginBottom: 20,
+        textAlign: 'center',
+    },
     userVestedScore: {
         fontSize: 24,
         fontWeight: 'bold',
@@ -313,23 +348,23 @@ export const commonStyles = StyleSheet.create({
 
     // ===== Image Styles =====
     userImageLarge: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
+        width: 130,
+        height: 130,
+        borderRadius: 65,
         marginBottom: 12,
         resizeMode: 'cover',
     },
     userImageMedium: {
-        width: 80,
-        height: 80,
-        borderRadius: 40,
+        width: 100,
+        height: 100,
+        borderRadius: 50,
         marginRight: 12,
         resizeMode: 'cover',
     },
     userImageSmall: {
-        width: 60,
-        height: 60,
-        borderRadius: 30,
+        width: 70,
+        height: 70,
+        borderRadius: 35,
         marginRight: 12,
         resizeMode: 'cover',
     },
@@ -361,10 +396,19 @@ export const commonStyles = StyleSheet.create({
         paddingHorizontal: 16,
         paddingBottom: 16,
         lineHeight: 20,
-        flex: 1,
     },
-
-    // ===== Match & Link Components =====
+    cardBio: {
+        marginTop: 8,
+        paddingHorizontal: 16,
+        paddingBottom: 16,
+    },
+    cardInfoText: {
+        lineHeight: 30,
+        fontSize: 16,
+        fontStyle: 'italic',
+        color: Colors.brandPink,
+        paddingHorizontal: 16,
+    },
     matchName: {
         fontSize: 18,
         fontWeight: 'bold',
@@ -380,13 +424,8 @@ export const commonStyles = StyleSheet.create({
         fontStyle: 'italic',
         fontWeight: 'bold',
         color: Colors.brandPink,
-        marginBottom: 16,
-    },
-    linkContainer: {
-        marginTop: 20,
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        gap: 15,
+        marginVertical: 8,
+        paddingHorizontal: 16,
     },
 
     // ===== Select List Styles =====

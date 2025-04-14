@@ -32,7 +32,7 @@ interface Contact {
     relationship: string;
 }
 
-export default function ProfileSetup() {
+export default function DaterSetup() {
     // Step 1 state
     const [reasons, setReasons] = useState({
         newToDating: false,
@@ -110,94 +110,96 @@ export default function ProfileSetup() {
                     Step 1: Tell us why you're here
                 </ThemedText>
 
-                <Checkbox.Item
-                    label="I'm new to dating apps and need help"
-                    status={reasons.newToDating ? 'checked' : 'unchecked'}
-                    onPress={() => setReasons(prev => ({ ...prev, newToDating: !prev.newToDating }))}
-                    position="leading"
-                    color={Colors.brandPink}
-                    uncheckedColor={Colors.brandGrayDarker}
-                />
-                <Checkbox.Item
-                    label="The current apps aren't working for me"
-                    status={reasons.currentAppsNotWorking ? 'checked' : 'unchecked'}
-                    onPress={() => setReasons(prev => ({ ...prev, currentAppsNotWorking: !prev.currentAppsNotWorking }))}
-                    position="leading"
-                    color={Colors.brandPink}
-                    uncheckedColor={Colors.brandGrayDarker}
-                />
-                <Checkbox.Item
-                    label="I'm overwhelmed by all the choices"
-                    status={reasons.overwhelmed ? 'checked' : 'unchecked'}
-                    onPress={() => setReasons(prev => ({ ...prev, overwhelmed: !prev.overwhelmed }))}
-                    position="leading"
-                    color={Colors.brandPink}
-                    uncheckedColor={Colors.brandGrayDarker}
-                />
-                <Checkbox.Item
-                    label="I feel alone in my dating journey"
-                    status={reasons.feelAloneInDatingJourney ? 'checked' : 'unchecked'}
-                    onPress={() => setReasons(prev => ({ ...prev, feelAloneInDatingJourney: !prev.feelAloneInDatingJourney }))}
-                    position="leading"
-                    color={Colors.brandPink}
-                    uncheckedColor={Colors.brandGrayDarker}
-                />
-                <Checkbox.Item
-                    label="I want a second opinion"
-                    status={reasons.secondOpinion ? 'checked' : 'unchecked'}
-                    onPress={() => setReasons(prev => ({ ...prev, secondOpinion: !prev.secondOpinion }))}
-                    position="leading"
-                    color={Colors.brandPink}
-                    uncheckedColor={Colors.brandGrayDarker}
-                />
-                <Checkbox.Item
-                    label="The people I've met on dating apps are nothing like their profiles. I need help with screening"
-                    status={reasons.screeningHelp ? 'checked' : 'unchecked'}
-                    onPress={() => setReasons(prev => ({ ...prev, screeningHelp: !prev.screeningHelp }))}
-                    position="leading"
-                    color={Colors.brandPink}
-                    uncheckedColor={Colors.brandGrayDarker}
-                />
-                <Checkbox.Item
-                    label="I think my friends might be better at finding a partner than I am"
-                    status={reasons.friendsRecommend ? 'checked' : 'unchecked'}
-                    onPress={() => setReasons(prev => ({ ...prev, friendsRecommend: !prev.friendsRecommend }))}
-                    position="leading"
-                    color={Colors.brandPink}
-                    uncheckedColor={Colors.brandGrayDarker}
-                />
-                <Checkbox.Item
-                    label="Sometimes other people know me better than I know myself"
-                    status={reasons.otherPeopleKnowMeBetter ? 'checked' : 'unchecked'}
-                    onPress={() => setReasons(prev => ({ ...prev, otherPeopleKnowMeBetter: !prev.otherPeopleKnowMeBetter }))}
-                    position="leading"
-                    color={Colors.brandPink}
-                    uncheckedColor={Colors.brandGrayDarker}
-                />
-                <Checkbox.Item
-                    label="I think it would be fun to do this with my friends"
-                    status={reasons.funWithFriends ? 'checked' : 'unchecked'}
-                    onPress={() => setReasons(prev => ({ ...prev, funWithFriends: !prev.funWithFriends }))}
-                    position="leading"
-                    color={Colors.brandPink}
-                    uncheckedColor={Colors.brandGrayDarker}
-                />
-                <Checkbox.Item
-                    label="I want to bring my community along on my dating journey"
-                    status={reasons.bringCommunityOnDatingJourney ? 'checked' : 'unchecked'}
-                    onPress={() => setReasons(prev => ({ ...prev, bringCommunityOnDatingJourney: !prev.bringCommunityOnDatingJourney }))}
-                    position="leading"
-                    color={Colors.brandPink}
-                    uncheckedColor={Colors.brandGrayDarker}
-                />
-                <Checkbox.Item
-                    label="Other"
-                    status={reasons.other ? 'checked' : 'unchecked'}
-                    onPress={() => setReasons(prev => ({ ...prev, other: !prev.other }))}
-                    position="leading"
-                    color={Colors.brandPink}
-                    uncheckedColor={Colors.brandGrayDarker}
-                />
+                <ThemedView style={commonStyles.checkboxContainer}>
+                    <Pressable 
+                        style={[commonStyles.checkboxItem, reasons.newToDating && commonStyles.selectedItem]}
+                        onPress={() => setReasons(prev => ({ ...prev, newToDating: !prev.newToDating }))}
+                    >
+                        <ThemedText style={[commonStyles.checkboxLabel, reasons.newToDating && commonStyles.selectedText]}>
+                            I'm new to dating apps and need help
+                        </ThemedText>
+                    </Pressable>
+                    <Pressable 
+                        style={[commonStyles.checkboxItem, reasons.currentAppsNotWorking && commonStyles.selectedItem]}
+                        onPress={() => setReasons(prev => ({ ...prev, currentAppsNotWorking: !prev.currentAppsNotWorking }))}
+                    >
+                        <ThemedText style={[commonStyles.checkboxLabel, reasons.currentAppsNotWorking && commonStyles.selectedText]}>
+                            The current apps aren't working for me
+                        </ThemedText>
+                    </Pressable>
+                    <Pressable 
+                        style={[commonStyles.checkboxItem, reasons.overwhelmed && commonStyles.selectedItem]}
+                        onPress={() => setReasons(prev => ({ ...prev, overwhelmed: !prev.overwhelmed }))}
+                    >
+                        <ThemedText style={[commonStyles.checkboxLabel, reasons.overwhelmed && commonStyles.selectedText]}>
+                            I'm overwhelmed by all the choices
+                        </ThemedText>
+                    </Pressable>
+                    <Pressable 
+                        style={[commonStyles.checkboxItem, reasons.feelAloneInDatingJourney && commonStyles.selectedItem]}
+                        onPress={() => setReasons(prev => ({ ...prev, feelAloneInDatingJourney: !prev.feelAloneInDatingJourney }))}
+                    >
+                        <ThemedText style={[commonStyles.checkboxLabel, reasons.feelAloneInDatingJourney && commonStyles.selectedText]}>
+                            I feel alone in my dating journey
+                        </ThemedText>
+                    </Pressable>
+                    <Pressable 
+                        style={[commonStyles.checkboxItem, reasons.secondOpinion && commonStyles.selectedItem]}
+                        onPress={() => setReasons(prev => ({ ...prev, secondOpinion: !prev.secondOpinion }))}
+                    >
+                        <ThemedText style={[commonStyles.checkboxLabel, reasons.secondOpinion && commonStyles.selectedText]}>
+                            I want a second opinion
+                        </ThemedText>
+                    </Pressable>
+                    <Pressable 
+                        style={[commonStyles.checkboxItem, reasons.screeningHelp && commonStyles.selectedItem]}
+                        onPress={() => setReasons(prev => ({ ...prev, screeningHelp: !prev.screeningHelp }))}
+                    >
+                        <ThemedText style={[commonStyles.checkboxLabel, reasons.screeningHelp && commonStyles.selectedText]}>
+                            The people I've met on dating apps are nothing like their profiles. I need help with screening
+                        </ThemedText>
+                    </Pressable>
+                    <Pressable 
+                        style={[commonStyles.checkboxItem, reasons.friendsRecommend && commonStyles.selectedItem]}
+                        onPress={() => setReasons(prev => ({ ...prev, friendsRecommend: !prev.friendsRecommend }))}
+                    >
+                        <ThemedText style={[commonStyles.checkboxLabel, reasons.friendsRecommend && commonStyles.selectedText]}>
+                            I think my friends might be better at finding a partner than I am
+                        </ThemedText>
+                    </Pressable>
+                    <Pressable 
+                        style={[commonStyles.checkboxItem, reasons.otherPeopleKnowMeBetter && commonStyles.selectedItem]}
+                        onPress={() => setReasons(prev => ({ ...prev, otherPeopleKnowMeBetter: !prev.otherPeopleKnowMeBetter }))}
+                    >
+                        <ThemedText style={[commonStyles.checkboxLabel, reasons.otherPeopleKnowMeBetter && commonStyles.selectedText]}>
+                            Sometimes other people know me better than I know myself
+                        </ThemedText>
+                    </Pressable>
+                    <Pressable 
+                        style={[commonStyles.checkboxItem, reasons.funWithFriends && commonStyles.selectedItem]}
+                        onPress={() => setReasons(prev => ({ ...prev, funWithFriends: !prev.funWithFriends }))}
+                    >
+                        <ThemedText style={[commonStyles.checkboxLabel, reasons.funWithFriends && commonStyles.selectedText]}>
+                            I think it would be fun to do this with my friends
+                        </ThemedText>
+                    </Pressable>
+                    <Pressable 
+                        style={[commonStyles.checkboxItem, reasons.bringCommunityOnDatingJourney && commonStyles.selectedItem]}
+                        onPress={() => setReasons(prev => ({ ...prev, bringCommunityOnDatingJourney: !prev.bringCommunityOnDatingJourney }))}
+                    >
+                        <ThemedText style={[commonStyles.checkboxLabel, reasons.bringCommunityOnDatingJourney && commonStyles.selectedText]}>
+                            I want to bring my community along on my dating journey
+                        </ThemedText>
+                    </Pressable>
+                    <Pressable 
+                        style={[commonStyles.checkboxItem, reasons.other && commonStyles.selectedItem]}
+                        onPress={() => setReasons(prev => ({ ...prev, other: !prev.other }))}
+                    >
+                        <ThemedText style={[commonStyles.checkboxLabel, reasons.other && commonStyles.selectedText]}>
+                            Other
+                        </ThemedText>
+                    </Pressable>
+                </ThemedView>
 
                 {reasons.other && (
                     <TextInput

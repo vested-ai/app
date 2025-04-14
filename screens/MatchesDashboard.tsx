@@ -7,6 +7,7 @@ import { ScrollView, TouchableOpacity, Image } from "react-native";
 // Third-party libraries
 import { router } from "expo-router";
 import Icon from "react-native-vector-icons/FontAwesome6";
+import Slider from '@react-native-community/slider';
 
 // Local components
 import { AppBar } from "@/components/AppBar";
@@ -40,6 +41,7 @@ export default function MatchesDashboard({ daterId }: MatchesDashboardProps) {
         );
     }
 
+    const [seriousness, setSeriousness] = useState(dater.seriousness || 50);
     const [hasMatches, setHasMatches] = useState(false);
     const [showMatches, setShowMatches] = useState(false);
 
@@ -54,7 +56,7 @@ export default function MatchesDashboard({ daterId }: MatchesDashboardProps) {
         <ScrollView style={[commonStyles.container, commonStyles.contentContainer]}>
             <AppBar />
 
-            {/* User Info Container */}
+            {/* User Header */}
             <ThemedView style={commonStyles.userHeader}>
                 <Image 
                     source={getProfileImage(dater.image)} 
@@ -63,6 +65,30 @@ export default function MatchesDashboard({ daterId }: MatchesDashboardProps) {
                 <ThemedView >
                     <ThemedText style={[commonStyles.title, { color: Colors.brandPink }]}>{dater.name}</ThemedText>
                 </ThemedView>
+                
+                {hasMatches && (
+                    <ThemedText style={commonStyles.userModeText}>
+                        {dater.matchRecommendations.length} Matches to Review
+                    </ThemedText>
+                )}
+
+                <ThemedView style={commonStyles.sliderContainer}>
+                    <ThemedText style={commonStyles.sliderTextSmall}>
+                        Casual
+                    </ThemedText>
+                    <Slider
+                        style={commonStyles.slider}
+                        minimumValue={0}
+                        maximumValue={100}
+                        value={seriousness}
+                        minimumTrackTintColor={Colors.brandGrayDarker}
+                        maximumTrackTintColor={Colors.brandGrayDarker}
+                        thumbTintColor={Colors.brandPink}
+                    />
+                    <ThemedText style={commonStyles.sliderTextSmall}>
+                        Super Serious
+                    </ThemedText>
+                </ThemedView>      
             </ThemedView>
 
             {/* Match Recommendations Section */}
@@ -115,29 +141,32 @@ export default function MatchesDashboard({ daterId }: MatchesDashboardProps) {
                                         <ThemedView style={commonStyles.daterCard}>
                                             <ThemedImage 
                                                 source={getProfileImage(match.image)} 
-                                                style={commonStyles.userImageMedium}
+                                                style={commonStyles.userImageSmall}
                                             />
-                                            <ThemedView style={{ flex: 1 }}>
-                                                <ThemedText style={commonStyles.cardTitle}>
-                                                    {match.name}
-                                                </ThemedText>
-                                            </ThemedView>
+
+                                            <ThemedText style={commonStyles.cardTitle}>
+                                                {match.name}
+                                            </ThemedText>
+
                                             <Badge 
                                                 count={matchRecommendation.rankScore} 
                                                 type="percentage" 
-                                                description='Match Score'
+                                                description='Match'
                                             />
                                         </ThemedView>
-                                        <ThemedText 
-                                            style={[commonStyles.cardContent, { 
-                                                marginTop: 8,
-                                                paddingHorizontal: 16,
-                                                paddingBottom: 16
-                                            }]}
-                                            numberOfLines={4}
-                                        >
-                                            {match.bio}
-                                        </ThemedText>
+
+                                        <ThemedView style={{ width: '100%', flex: 1 }}>
+                                            <ThemedText 
+                                                style={[commonStyles.cardContent, commonStyles.cardBio]}
+                                                numberOfLines={4}
+                                                ellipsizeMode="tail"
+                                            >
+                                               {match.bio}
+                                            </ThemedText>
+                                            <ThemedText style={commonStyles.cardInfoText}>
+                                                Review to add commentary
+                                            </ThemedText>
+                                        </ThemedView>
                                     </TouchableOpacity>
                                 );
                             })}

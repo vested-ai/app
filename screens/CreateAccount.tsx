@@ -52,9 +52,8 @@ export default function CreateAccount() {
 
         try {
             setIsLoading(true);
-            // TODO: call account creatiion API
-            // await createAccount({ firstname, lastName, email, password });
-            router.replace('/(account)/setup');
+            
+            router.replace('/(account)/persona');
         
         } catch (err) {
             setError(err instanceof Error ? err.message : 'Failed to create account');

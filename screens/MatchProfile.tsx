@@ -17,16 +17,15 @@ import { Dater } from '@/types/data';
 
 interface MatchProfileProps {
     matchId: string;
-    friendId: string;
 }
 
-export default function MatchProfile({ matchId, friendId }: MatchProfileProps) {
-    if (!matchId || !friendId) {
-        console.error("Invalid matchId or friendId provided to MatchProfile");
+export default function MatchProfile({ matchId }: MatchProfileProps) {
+    if (!matchId) {
+        console.error("Invalid matchId provided to MatchProfile");
     }
    
-     const [match, setMatch] = useState<Dater | undefined>(getDaterById(matchId));   
-     const [friend, setFriend] = useState<Dater | undefined>(getDaterById(friendId));
+    const [match, setMatch] = useState<Dater | undefined>(getDaterById(matchId));   
+    
     if (!match) {
         return (
             <ThemedView style={commonStyles.container}>
@@ -41,7 +40,7 @@ export default function MatchProfile({ matchId, friendId }: MatchProfileProps) {
         <ScrollView style={commonStyles.container} contentContainerStyle={commonStyles.contentContainer}>
             <AppBar />
 
-            {/* User Info Container */}
+            {/* User Header */}
             <ThemedView style={commonStyles.userHeader}>
                 <ThemedImage 
                     source={getProfileImage(match.image)} 

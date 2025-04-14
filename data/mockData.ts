@@ -74,7 +74,8 @@ const generateDaters = (): Dater[] => {
         image: (index + 1).toString(),
         vestedScore: Math.floor(Math.random() * (100 - 70) + 70),
         friends: [], // Will be populated after friends are generated
-        reviewingMatches: Math.floor(Math.random() * 5)
+        reviewingMatches: Math.floor(Math.random() * 5),
+        seriousness: Math.floor(Math.random() * 100)
     }));
 
     return daters;

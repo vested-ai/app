@@ -64,7 +64,7 @@ export default function DaterDashboard() {
             
             <AppBar />
 
-            {/* User Info Container */}
+            {/* User Header */}
             <ThemedView style={commonStyles.userHeader}>
                 <ThemedImage 
                     source={getProfileImage(dater.image)} 
@@ -112,7 +112,7 @@ export default function DaterDashboard() {
                     </TouchableOpacity>
 
                     {showRecommendations && (
-                        <ThemedView style={commonStyles.section}>
+                        <ThemedView>
                             {dater.matchRecommendations
                                 .sort((a, b) => b.rankScore - a.rankScore)
                                 .map((match) => (
@@ -127,17 +127,17 @@ export default function DaterDashboard() {
                                         <ThemedView style={commonStyles.daterCard}>
                                             <ThemedImage 
                                                 source={getProfileImage(match.image)} 
-                                                style={commonStyles.userImageMedium}
+                                                style={commonStyles.userImageSmall}
                                             />
-                                            <ThemedView style={{ flex: 1 }}>
-                                                <ThemedText style={commonStyles.cardTitle}>
+                                            <ThemedView style={{ flex: 1, marginRight: 16 }}>
+                                                <ThemedText style={commonStyles.cardTitle} numberOfLines={1}>
                                                     {match.name}
                                                 </ThemedText>
                                             </ThemedView>
                                             <Badge 
-                                              count={match.rankScore} 
-                                              type="percentage" 
-                                              description='Match Score'
+                                                count={match.rankScore} 
+                                                type="percentage" 
+                                                description='Match'
                                             />
                                         </ThemedView>
                                         <ThemedText 
