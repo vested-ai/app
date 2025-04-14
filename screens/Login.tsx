@@ -3,12 +3,11 @@ import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { Link, router } from 'expo-router';
 import { LegalDisclaimer } from '@/components/LegalDisclaimer';
+import { Colors } from '@/constants/Colors';
 
-// You'll need to add your app logo image to your assets
-import APP_LOGO from '@/assets/images/react-logo.png';
+const APP_LOGO = require('@/assets/images/react-logo.png');
 
 export const LoginScreen = () => {
-
     const handleFacebookLogin = () => {
     // Implement Facebook login logic
     };
@@ -92,16 +91,16 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
     },
     facebookButton: {
-        backgroundColor: '#1877F2',
+        backgroundColor: '#2b78e4',
     },
     googleButton: {
-        backgroundColor: '#DB4437',
+        backgroundColor: '#2b78e4',
     },
     emailButton: {
-        backgroundColor: '#34A853',
+        backgroundColor: Colors.brandPink,
     },
     buttonText: {
-        color: '#FFFFFF',
+        color: Colors.brandWhite,
         fontSize: 16,
         fontWeight: 'bold',
     },
@@ -111,16 +110,16 @@ export const styles = StyleSheet.create({
     },
     signInText: {
         fontSize: 14,
-        color: '#666666',
+        color: Colors.brandGray,
     },
     legalText: {
         fontSize: 14,
-        color: '#666666',
+        color: Colors.brandGray,
         marginTop: 20,
         alignItems: 'center',
     },
     linkText: {
-        color: 'blue',
+        color: Colors.brandPink,
         textDecorationLine: 'underline',
     },
 }); 

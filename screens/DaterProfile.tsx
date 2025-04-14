@@ -1,6 +1,8 @@
-import { Text, StyleSheet, TouchableOpacity, View, ScrollView } from "react-native";
+import { StyleSheet, TouchableOpacity, View, ScrollView } from "react-native";
 import { useEffect, useState } from "react";
 import { ThemedText } from "@/components/ThemedText";
+import { Colors } from "@/constants/Colors";
+import { commonStyles } from "@/styles/common";
 
 interface DaterProfileProps {
   name: string;
@@ -60,7 +62,6 @@ export default function DaterProfile() {
   const [showRecommendations, setShowRecommendations] = useState(false);
   const [showFriends, setShowFriends] = useState(false);
 
-
   useEffect(() => {
     if (profile.matchRecommendations.length > 0) {
       setShowRecommendations(true);
@@ -72,22 +73,16 @@ export default function DaterProfile() {
   }, [profile.matchRecommendations, profile.friends]);
 
   return (
-    <ScrollView style={styles.container}>
-      <View 
-        style={styles.appBar}
-        accessibilityRole="banner"
-      >
-        <ThemedText style={styles.appTitle}>Vested</ThemedText>
+        <ScrollView style={commonStyles.container} contentContainerStyle={commonStyles.contentContainer}>
+            <View style={commonStyles.appBar}>
+                <ThemedText style={commonStyles.appTitle}>Vested</ThemedText>
       </View>
 
-      <ThemedText 
-        style={styles.dashboardTitle}
-        accessibilityRole="header"
-      >
+            <ThemedText style={commonStyles.dashboardTitle} accessibilityRole="header">
         {profile.name}'s Vested Dashboard
       </ThemedText>
 
-      <View style={styles.card}>
+            <View style={commonStyles.card}>
         <TouchableOpacity 
           style={styles.cardHeader}
           accessibilityRole="button"
@@ -95,14 +90,14 @@ export default function DaterProfile() {
           accessibilityHint="Double tap to show or hide match recommendations"
           onPress={() => setShowRecommendations(!showRecommendations)}
         >
-          <ThemedText style={styles.cardTitle}>Match Recommendations</ThemedText>
-          <Text style={styles.toggleIcon}>
+                    <ThemedText style={commonStyles.cardTitle}>Match Recommendations</ThemedText>
+                    <ThemedText style={styles.toggleIcon}>
             {showRecommendations ? '▼' : '▶'}
-          </Text>
+                    </ThemedText>
         </TouchableOpacity>
 
         {showRecommendations && (
-          <View style={styles.cardContent}>
+                    <View style={commonStyles.cardContentContainer}>
             {profile.matchRecommendations.length > 0 ? (
               profile.matchRecommendations
                 .sort((a, b) => b.rankScore - a.rankScore)
@@ -121,25 +116,25 @@ export default function DaterProfile() {
         )}
       </View>
 
-      <View style={styles.card}>
-        <ThemedText style={styles.cardTitle}>
+            <View style={commonStyles.card}>
+                <ThemedText style={commonStyles.cardTitle}>
           {profile.reviewingMatches} matches being reviewed by friends
         </ThemedText>
       </View>
 
-      <View style={styles.card}>
+            <View style={commonStyles.card}>
         <TouchableOpacity 
           style={styles.cardHeader}
           onPress={() => setShowFriends(!showFriends)}
         >
-          <ThemedText style={styles.cardTitle}>Your Vested Friends</ThemedText>
-          <Text style={styles.toggleIcon}>
+                    <ThemedText style={commonStyles.cardTitle}>Your Vested Friends</ThemedText>
+                    <ThemedText style={styles.toggleIcon}>
             {showFriends ? '▼' : '▶'}
-          </Text>
+                    </ThemedText>
         </TouchableOpacity>
         
         {showFriends && (
-          <View style={styles.cardContent}>
+                    <View style={commonStyles.cardContentContainer}>
             {profile.friends.length > 0 ? (
               profile.friends
                 .sort((a, b) => b.vestedScore - a.vestedScore)
@@ -159,64 +154,17 @@ export default function DaterProfile() {
       </View>
     </ScrollView>
   );
-};
+}
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 20,
-    },
-    appBar: {
-        backgroundColor: '#1a1a1a',
-        padding: 16,
-        marginBottom: 16,
-    },
-    appTitle: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        color: 'white',
-    },
-    dashboardTitle: {
-        fontSize: 32,
-        fontWeight: 'bold',
-        marginVertical: 24,
-    },
-    card: {
-        backgroundColor: 'white',
-        borderRadius: 8,
-        padding: 16,
-        marginBottom: 16,
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-        elevation: 2,
-    },
     cardHeader: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
     },
-    cardTitle: {
-        fontSize: 18,
-        fontWeight: 'bold',
-    },
     toggleIcon: {
         fontSize: 20,
         padding: 4,
-    },
-    cardContent: {
-        paddingTop: 16,
-    },
-    friendRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingVertical: 8,
-        borderBottomWidth: 1,
-        borderBottomColor: '#eee',
     },
     matchRow: {
         flexDirection: 'row',
@@ -224,7 +172,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingVertical: 12,
         borderBottomWidth: 1,
-        borderBottomColor: '#eee',
+        borderBottomColor: Colors.brandGrayLighter,
     },
     matchName: {
         fontSize: 16,
@@ -232,7 +180,14 @@ const styles = StyleSheet.create({
     },
     matchScore: {
         fontSize: 14,
-        color: '#666',
+        color: Colors.brandGray,
+    },
+    friendRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingVertical: 8,
+        borderBottomWidth: 1,
+        borderBottomColor: Colors.brandGrayLighter,
     },
     friendName: {
         fontSize: 16,
@@ -240,6 +195,6 @@ const styles = StyleSheet.create({
     },
     friendScore: {
         fontSize: 14,
-        color: '#666',
+        color: Colors.brandGray,
     }
 });

@@ -2,9 +2,9 @@ import { router } from "expo-router";
 import React, { useRef, useState } from "react";
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import { ThemedText } from "@/components/ThemedText";
+import { Colors } from "@/constants/Colors";
 
 export default function ForgotPassword() {
-
     const [email, setEmail] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 40,
         borderWidth: 1,
-        borderColor: '#ccc',
+        borderColor: Colors.brandGrayLighter,
         borderRadius: 5,
         paddingHorizontal: 10,
         marginTop: 20,
@@ -98,21 +98,22 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     buttonText: {
-        color: '#FFFFFF',
+        color: Colors.brandWhite,
         fontSize: 16,
         fontWeight: 'bold',
     },
     signupButton: {
-        backgroundColor: '#DB4437',
+        backgroundColor: Colors.brandPink,
     },
     errorText: {
-        color: 'red',
+        color: Colors.brandPink,
         marginTop: 10,
         textAlign: 'center',
     },
     linkText: {
         marginTop: 10,
         textAlign: 'center',
+        color: Colors.brandPink,
     },
     title: {
         fontSize: 20,

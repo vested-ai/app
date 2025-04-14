@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { Link } from 'expo-router';
 import { ThemedText } from '@/components/ThemedText';
+import { Colors } from '@/constants/Colors';
 
 
 export function LegalDisclaimer() {
@@ -18,11 +19,11 @@ export function LegalDisclaimer() {
 const styles = StyleSheet.create({
     legalText: {
         fontSize: 14,
-        color: '#666666',
+        color: Colors.brandGray,
         marginTop: 20,
     },
     linkText: {
-        color: 'blue',
+        color: Colors.brandPink,
         textDecorationLine: 'underline',
     }
 }); 

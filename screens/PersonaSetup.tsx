@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { View, StyleSheet, Pressable, TouchableOpacity } from "react-native";
 import { Text } from "react-native";
 import { Checkbox } from "react-native-paper";
+import { Colors } from "@/constants/Colors";
+import { commonStyles } from "@/styles/common";
 
 export default function PersonaSetup() {
 
@@ -27,11 +29,11 @@ export default function PersonaSetup() {
         if (!requiredFieldsComplete) {
             return;
         }
-        router.replace(persona === 'dater' ? '/(account)/daterprofile' : '/(account)/friendprofile');
+        router.replace(persona === 'dater' ? '/(profile)/daterprofile' : '/(profile)/friendprofile');
     };
 
     return (
-        <View style={styles.container} accessibilityRole="main">
+        <View style={styles.container}>
             <Text style={styles.header} accessibilityRole="header">I am joining Vested as a:</Text>
 
             <View style={styles.buttonContainer} accessibilityRole="radiogroup">
@@ -43,7 +45,7 @@ export default function PersonaSetup() {
                     accessibilityLabel="Join as a Dater"
                     accessibilityHint="Select to join Vested as someone looking for dates"
                 >
-                    <Text style={styles.buttonText}>Dater</Text>
+                    <Text style={persona === 'dater' ? [styles.buttonText, styles.buttonSelectedText] : styles.buttonText}>Dater</Text>
                 </Pressable>
 
                 <Pressable 
@@ -54,7 +56,7 @@ export default function PersonaSetup() {
                     accessibilityLabel="Join as a Friend"
                     accessibilityHint="Select to join Vested as someone helping friends find dates"
                 >
-                    <Text style={styles.buttonText}>Friend</Text>    
+                    <Text style={persona === 'friend' ? [styles.buttonText, styles.buttonSelectedText] : styles.buttonText}>Friend</Text>    
                 </Pressable>    
             </View>
 
@@ -62,24 +64,24 @@ export default function PersonaSetup() {
                 Choose your primary persona to begin. You can add or change your persona in your Profile settings at any time.
             </Text>
 
-            <View style={styles.checkboxContainer}>
+            <View style={commonStyles.checkboxContainer}>
                 <Checkbox.Item 
                     label="I accept the Vested Terms & Conditions"
                     status={termsAccepted ? 'checked' : 'unchecked'}
                     onPress={() => setTermsAccepted(!termsAccepted)}
                     position="leading"
-                    accessibilityLabel="Accept Terms and Conditions"
-                    accessibilityHint="Required. Check to accept the Terms and Conditions"
-                    accessibilityRole="checkbox"
+                    accessibilityLabel="Accept Vested Terms & Conditions"
+                    color={Colors.brandPink}
+                    style={commonStyles.checkboxItem}
                 />
                 <Checkbox.Item 
                     label="I accept the Vested Privacy Policy"
                     status={privacyPolicyAccepted ? 'checked' : 'unchecked'}
                     onPress={() => setPrivacyPolicyAccepted(!privacyPolicyAccepted)}
                     position="leading"
-                    accessibilityLabel="Accept Privacy Policy"
-                    accessibilityHint="Required. Check to accept the Privacy Policy"
-                    accessibilityRole="checkbox"
+                    accessibilityLabel="Accept Vested Privacy Policy"
+                    color={Colors.brandPink}
+                    style={commonStyles.checkboxItem}
                 />
             </View>
 
@@ -92,7 +94,7 @@ export default function PersonaSetup() {
                 accessibilityHint="Continues to profile setup once terms and privacy policy are accepted"
                 accessibilityState={{ disabled: !requiredFieldsComplete }}
             >
-                <Text style={requiredFieldsComplete ? styles.buttonText : [styles.buttonText, styles.buttonDisabledText]}>
+                <Text style={requiredFieldsComplete ? [styles.buttonText, styles.buttonEnabledText] : [styles.buttonText, styles.buttonDisabledText]}>
                     I'm ready to be Vested
                 </Text>
             </TouchableOpacity>
@@ -119,23 +121,29 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 5,
         borderWidth: 5,
-        borderColor: 'black',
-    },
-    buttonSelected: {
-        backgroundColor: 'cornflowerblue',
+        borderColor: Colors.brandBlack,
     },
     buttonDisabled: {
-        borderColor: 'gray',
+        borderColor: Colors.brandGrayLight,
     },
     buttonEnabled: {
-        backgroundColor: 'cornflowerblue',
+        backgroundColor: Colors.brandPink,
+    },
+    buttonSelected: {
+        backgroundColor: Colors.brandPink,
     },
     buttonText: {
         fontWeight: 'bold',
         fontSize: 16,
     },
     buttonDisabledText: {
-        color: 'gray',
+        color: Colors.brandGrayLight,
+    },
+    buttonSelectedText: {
+        color: Colors.brandWhite,
+    },
+    buttonEnabledText: {
+        color: Colors.brandWhite,
     },
     text: {
         fontSize: 16,

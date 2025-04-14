@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 import { LegalDisclaimer } from "@/components/LegalDisclaimer";
 import { ThemedText } from "@/components/ThemedText";
 import { router } from "expo-router";
-
+import { Colors } from "@/constants/Colors";
 export default function CreateAccount() {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 40,
         borderWidth: 1,
-        borderColor: '#ccc',
+        borderColor: Colors.brandGrayLighter,
         borderRadius: 5,
         paddingHorizontal: 10,
         marginTop: 20,
@@ -173,15 +173,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     buttonText: {
-        color: '#FFFFFF',
+        color: Colors.brandWhite,
         fontSize: 16,
         fontWeight: 'bold',
     },
     signupButton: {
-        backgroundColor: '#DB4437',
+        backgroundColor: Colors.brandPink,
     },
     errorText: {
-        color: 'red',
+        color: Colors.brandPink,
         marginTop: 10,
         textAlign: 'center',
     },

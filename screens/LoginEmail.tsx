@@ -2,6 +2,7 @@ import { Text, StyleSheet, TouchableOpacity, View, TextInput } from "react-nativ
 import { useRef, useState } from "react";
 import { ThemedText } from "@/components/ThemedText";
 import { Link, router } from "expo-router";
+import { Colors } from "@/constants/Colors";
 
 
 export default function LoginEmail() {
@@ -31,10 +32,7 @@ export default function LoginEmail() {
 
         try {
             setIsLoading(true);
-            // TODO: Implement login API with rate limiting
-            // await loginUser({ email, password });
-            // TODO: Send user to either a dater profile or a friend profile
-            router.replace('/(account)/daterprofile');
+            router.replace('/(profile)/daterprofile');
         
         } catch (_err) {
             setError('Invalid email or password');  // Don't expose specific errors
@@ -121,7 +119,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 40,
         borderWidth: 1,
-        borderColor: '#ccc',
+        borderColor: Colors.brandGrayLighter,
         borderRadius: 5,
         paddingHorizontal: 10,
         marginTop: 20,
@@ -136,25 +134,25 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     buttonText: {
-        color: '#FFFFFF',
+        color: Colors.brandWhite,
         fontSize: 16,
         fontWeight: 'bold',
     },
     signupButton: {
-        backgroundColor: '#DB4437',
+        backgroundColor: Colors.brandPink,
     },
     errorText: {
-        color: 'red',
+        color: Colors.brandPink,
         marginTop: 10,
         textAlign: 'center',
     },
     linkText: {
-        color: 'blue',
+        color: Colors.brandPink,
         textDecorationLine: 'underline',
     },
     loginText: {
         fontSize: 14,
-        color: '#666666',
+        color: Colors.brandGray,
     },
     title: {
         fontSize: 20,
