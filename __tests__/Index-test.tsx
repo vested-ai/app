@@ -1,12 +1,13 @@
-import { render } from '@testing-library/react-native';
-
+import React from 'react';
+import { render, waitFor } from '@testing-library/react-native';
 import App from '../app/index';
 
-
 describe('<App />', () => {
-    test('Text renders correctly on App', () => {
+    it('renders correctly', async () => {
         const { getByText } = render(<App />);
-
-        getByText('Already have an account?');
+        
+        await waitFor(() => {
+            expect(getByText('Already have an account?')).toBeTruthy();
+        }, { timeout: 3000 });
     });
 });
